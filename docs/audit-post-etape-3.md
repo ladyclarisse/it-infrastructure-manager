@@ -30,4 +30,4 @@ La chaîne Prometheus → Node Exporter n’a pas été exécutée dans cet envi
 
 ## Traçabilité Git
 
-La contribution est destinée à la branche `main` du dépôt `ladyclarisse/it-infrastructure-manager`. Le hash de synchronisation sera ajouté après le commit et le push de cette livraison ; aucune modification ne doit être poussée sur une autre branche.
+La contribution est destinée à la branche `main` du dépôt `ladyclarisse/it-infrastructure-manager`. Le commit de livraison Étape 3 est `4cdc7b6` (`feat(monitoring): establish Prometheus foundation`), poussé sur `main`. Aucune modification n’a été poussée sur une autre branche.
