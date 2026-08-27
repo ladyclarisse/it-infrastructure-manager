@@ -18,8 +18,8 @@ Le choix actuel est pragmatique : **React 19 + TypeScript + Tailwind CSS 4** pou
 | Gestion utilisateurs | IMPLEMENTED | Recherche, consultation, modification de rôle et activation/désactivation |
 | Journal d’audit | IMPLEMENTED | Contrôles de session, déconnexion et changements d’accès |
 | Console React | IMPLEMENTED | Vue d’ensemble, utilisateurs, rôles, audit, responsive |
-| Monitoring réel | PLANNED | Aucun indicateur simulé n’est présenté comme réel |
-| Notifications d’alertes | PLANNED | Préparation documentaire uniquement |
+| Monitoring réel | IMPLEMENTED | Prometheus/Node Exporter, cibles, API et métriques réelles ; runtime inter-services à valider |
+| Notifications d’alertes | PLANNED | Aucun canal externe activé ; les incidents sont persistés pour une future étape |
 | Pièces jointes hors base | PLANNED | Le stockage objet sera associé dans une étape dédiée |
 
 ## État réel de l’Étape 2
@@ -35,6 +35,20 @@ Le choix actuel est pragmatique : **React 19 + TypeScript + Tailwind CSS 4** pou
 | Windows Exporter, SNMP, agents, découverte | PLANNED | Aucun exporter secondaire, scan ou agent propriétaire |
 | PostgreSQL/Docker runtime | BLOCKED | Runtime conteneur PostgreSQL non disponible dans l’environnement audité |
 | Validation Étape 2.1 | TESTED | `pnpm validate` : 38 tests, TypeScript et build réussis ; façade REST testée par mapping et enregistrement |
+
+## État réel de l’Étape 4
+
+| Capacité | État | Périmètre réel |
+|---|---|---|
+| Alert Rules PromQL | IMPLEMENTED / TESTED | Métadonnées persistées, quatre règles Node Exporter de référence, validation d’expression et bootstrap idempotent |
+| Alertes observées | IMPLEMENTED / TESTED | États `PENDING`, `FIRING`, `RESOLVED`, `UNKNOWN`, fingerprint unique et corrélation contrôlée |
+| Incidents | IMPLEMENTED / TESTED | Création, affectation utilisateur, timeline persistée et cycle de vie contrôlé |
+| APIs Alerting | IMPLEMENTED / TESTED | tRPC et REST authentifiés avec RBAC serveur |
+| Console Alerts/Incidents | IMPLEMENTED | Listes, filtres, détail, timeline, états vides et erreurs explicites |
+| Alertmanager | DESIGNED / PLANNED | Aucun webhook ou secret externe activé à cette étape |
+| Docker/Prometheus réel | BLOCKED | À exécuter sur un runtime conteneurisé réel |
+| PostgreSQL réel | BLOCKED | Validation externe à réaliser si cette cible devient obligatoire |
+| Validation Étape 4 | TESTED | Tests service, routeur, REST, présentation frontend, TypeScript et build à confirmer par `pnpm validate` |
 
 ## Démarrage
 
@@ -77,3 +91,9 @@ IT Infrastructure Manager est un control plane pensé pour une équipe informati
 - [Node Exporter](docs/node-exporter.md)
 - [API monitoring](docs/monitoring-api.md)
 - [Dépannage monitoring](docs/monitoring-troubleshooting.md)
+- [Alertes](docs/alerts.md)
+- [Incidents](docs/incidents.md)
+- [Architecture alerting](docs/alerting-architecture.md)
+- [Cycle de vie incidents](docs/incident-lifecycle.md)
+- [Dépannage alerting](docs/alerting-troubleshooting.md)
+- [Audit post-Étape 4](docs/audit-post-etape-4.md)

@@ -74,3 +74,18 @@
 - [x] Étape 3 — compléter les tests monitoring couvrant CRUD target, RBAC, audit et chemins métier réels pour `NOT_CONFIGURED`/observation.
 - [x] Étape 3 — vérifier les contrôles runtime applicatifs disponibles dans le sandbox, au minimum le refus anonyme des routes monitoring, en conservant Docker/Prometheus `BLOCKED`.
 - [x] Étape 3 — créer le commit final, pousser sur `main` et consigner le hash de livraison dans l’audit ; synchronisation finale `2118a6d`.
+
+# Étape 4 — Alertes et Incidents
+
+- [x] Auditer et documenter la séparation Metric / Alert / Incident / Ticket et l’architecture de corrélation.
+- [x] Créer les modèles persistants `alert_rules`, `alerts`, `incidents` et l’historique métier avec index, FK et contraintes.
+- [x] Implémenter les règles PromQL contrôlées, les états d’alerte, la déduplication et la corrélation Alert → Incident.
+- [x] Implémenter le cycle de vie Incident, l’affectation utilisateur, le RBAC et l’audit des mutations.
+- [x] Exposer les APIs tRPC et REST authentifiées pour règles, alertes et incidents.
+- [x] Construire les écrans Alerts, Incidents, détail, filtres, timeline et états d’erreur explicites.
+- [x] Ajouter les tests service, routeur, REST, RBAC, audit, transitions et déduplication.
+- [x] Mettre à jour la documentation, les diagrammes et créer `docs/audit-post-etape-4.md`.
+- [x] Exécuter `pnpm validate`, conserver les validations Docker/Prometheus/PostgreSQL en `BLOCKED` si indisponibles, puis pousser sur `main`.
+- [x] Étape 4 — ajouter les filtres incidents par utilisateur assigné et par monitoring target.
+- [x] Étape 4 — enrichir les alertes affichées avec cible, règle, durée et statut opérationnel.
+- [ ] Étape 4 — créer le commit final Étape 4, pousser sur `main` et consigner le hash final dans l’audit.

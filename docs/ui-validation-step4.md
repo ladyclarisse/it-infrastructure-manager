@@ -1,0 +1,3 @@
+# Vérification visuelle Étape 4
+
+Les routes `/alerts` et `/incidents` ont été capturées sur desktop 1280×720 et mobile 375×812. La navigation latérale reste cohérente sur desktop, les cartes d’état sont lisibles, les filtres incidents passent en disposition verticale sur mobile et les états vides sont rendus sans données fictives. Les compteurs affichent `—` lorsqu’une lecture API échoue et les pages affichent explicitement `API unavailable` ou `Prometheus unavailable` plutôt que de masquer l’erreur derrière des zéros. Le runtime Prometheus/Docker n’a pas été utilisé pour cette vérification visuelle.

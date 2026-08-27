@@ -1,0 +1,10 @@
+flowchart TD
+  E[Exporter Node Exporter] --> P[Prometheus]
+  P --> R[Alert Rule metadata]
+  R --> A[Alert observée]
+  A --> C{Corrélation explicite}
+  C -->|CRITICAL + create_incident=true| I[Incident]
+  C -->|autre condition| A
+  I --> AS[Affectation]
+  AS --> RS[Résolution]
+  RS --> T[Ticket futur - PLANNED]
