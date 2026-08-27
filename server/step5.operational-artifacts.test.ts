@@ -18,6 +18,7 @@ const productionEntry = read("../server/_core/production.ts");
 const appModule = read("../server/_core/app.ts");
 const staticModule = read("../server/_core/static.ts");
 const runtimeFollowup = read("../docs/validation-runtime-backend-prometheus.md");
+const validation533 = read("../docs/validation-operationnelle-etape-5-3-3.md");
 
 describe("Étape 5 operational artifacts", () => {
   it("documents a non-secret local environment routed through Docker service names", () => {
@@ -92,5 +93,14 @@ describe("Étape 5 operational artifacts", () => {
     expect(runtimeFollowup).toContain("Docker local | NON DISPONIBLE");
     expect(runtimeFollowup).toContain("SELinux local | NON DISPONIBLE");
     expect(runtimeFollowup).not.toContain("PostgreSQL applicatif | PASS");
+    expect(validation533).toContain("132b7d50d243f1081d391d3384de9c188e9cb537");
+    expect(validation533).toContain("eb5c96070e721fab9a09ea81abe429a4881734e3");
+    expect(validation533).toContain(":ro,Z");
+    expect(validation533).toContain("EAI_AGAIN");
+    expect(validation533).toContain("git pull --ff-only origin main");
+    expect(validation533).not.toContain("git reset --hard");
+    expect(validation533).toContain("| PostgreSQL applicatif |");
+    expect(validation533).toContain("| Prometheus applicatif |");
+    expect(validation533).toContain("| NON VALIDÉ |");
   });
 });

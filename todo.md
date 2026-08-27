@@ -208,3 +208,13 @@
 - [x] Exécuter `pnpm validate` et documenter précisément les résultats.
 - [x] Documenter que le rebuild et les healthchecks Fedora réels restent à confirmer depuis cet environnement sans Docker.
 - [x] Créer un checkpoint uniquement après correction et validation, sans qualifier PostgreSQL/Prometheus applicatif/Alert/Incident/persistance sans preuves dédiées.
+
+# Étape 5.3.3 — SELinux Prometheus et EAI_AGAIN Fedora
+
+- [x] Inspecter l’historique Git et les fichiers concernés avant modification.
+- [x] Confirmer pourquoi `:Z` manque dans le checkout Fedora et corriger minimalement `docker-compose.yml` sans toucher au patch Wouter.
+- [x] Documenter le traitement infrastructure de `EAI_AGAIN` sans désactiver de sécurité ni ajouter de contournement projet.
+- [x] Documenter la procédure de redémarrage et les scénarios applicatifs PostgreSQL, Prometheus, Alert, Incident et persistance.
+- [x] Renforcer les tests sur le montage SELinux et l’absence de modification Wouter.
+- [x] Exécuter `pnpm validate`, fournir les fichiers/commit et distinguer VALIDÉ de NON VALIDÉ.
+- [x] Créer un checkpoint après correction et validation, sans inférer une validation applicative d’un build Docker.
