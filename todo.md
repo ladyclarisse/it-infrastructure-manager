@@ -115,3 +115,25 @@
 - [x] Étape 4.1 — requalifier l’item global du nouveau prompt en `BLOCKED` tant que Docker/PostgreSQL/Prometheus réels ne sont pas prouvés dans un environnement disponible.
 - [x] Étape 4.1 — conserver l’absence de tests persistants PostgreSQL réels comme `BLOCKED`, sans les présenter comme exécutés.
 - [x] Étape 4.1 — produire les preuves runtime manquantes : **BLOCKED — docker/podman/nerdctl absents du sandbox**, donc aucune preuve artificielle de healthcheck, migration persistante, scrape ou chaîne monitoring → alert → incident.
+
+# Nouveau prompt joint — à traiter
+
+- [x] Lire le prompt joint et extraire ses critères d’acceptation.
+- [x] Auditer le projet selon ces critères et définir les changements nécessaires.
+- [x] Implémenter les exigences réalisables sans régression, puis ajouter les tests associés : test dédié `server/step5.operational-artifacts.test.ts` ajouté et passé.
+- [x] Mettre à jour la documentation et qualifier précisément les blocages éventuels.
+- [ ] Valider, committer et pousser la livraison sur `main` si les contrôles réussissent.
+
+# Étape 5 — Validation opérationnelle réelle
+
+- [x] Auditer l’état Git, Compose, PostgreSQL, migrations, backend, Prometheus, Node Exporter, alerting et tests.
+- [x] Préparer l’environnement local reproductible sans committer de secrets : `.env.local.example` référencé dans `docs/installation.md`, aucun secret versionné.
+- [x] Exécuter `docker compose config`, `up`, `ps`, logs, migrations et redémarrage si le runtime est disponible : **BLOCKED — `docker` absent, commandes en échec avec exit 127**.
+- [x] Exécuter les tests persistants PostgreSQL réels distincts des tests unitaires, ou qualifier ce contrôle BLOCKED avec la raison exacte : **BLOCKED — aucune instance réelle ; 69 tests statiques/unitaires passés**.
+- [x] Vérifier réellement Prometheus, Node Exporter, cible UP, PromQL, Alert, Incident et Audit, ou qualifier chaque contrôle BLOCKED : **BLOCKED — stack conteneur indisponible, aucune preuve inventée**.
+- [x] Tester les endpoints publics/protégés, l’absence de secret et les limites de sécurité : `/` 200, cinq routes monitoring/alertes/incidents `401`, audit des fichiers versionnés sans finding.
+- [x] Créer `docs/validation-operationnelle-etape-5.md` avec commandes, preuves et statuts PASS/PARTIAL/BLOCKED/FAIL.
+- [ ] Exécuter `pnpm validate`, versionner et pousser la clôture Étape 5 sur `main`.
+- [x] Étape 5 — créer ou mettre à jour une convention d’environnement local reproductible non secrète et la référencer dans la documentation Docker : `.env.local.example` et `docs/installation.md`.
+- [x] Étape 5 — tester les routes protégées monitoring et incidents, puis relancer un audit de secrets sur le dépôt hors dépendances et artefacts : toutes les routes testées répondent `401`, audit sans finding.
+- [x] Étape 5 — ajouter un test automatisé dédié au modèle `.env.local.example`, aux variables PostgreSQL/Prometheus et au rapport opérationnel : 3 tests passés.

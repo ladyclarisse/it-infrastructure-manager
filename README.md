@@ -78,6 +78,7 @@ IT Infrastructure Manager est un control plane pensé pour une équipe informati
 - [Déploiement](docs/deployment.md)
 - [Audit migration PostgreSQL](docs/postgresql-migration-audit.md)
 - [Validation PostgreSQL](docs/validation-postgresql.md)
+- [Validation opérationnelle Étape 5](docs/validation-operationnelle-etape-5.md)
 - [Sécurité](docs/security.md)
 - [RBAC](docs/rbac.md)
 - [Audit post-Étape 1](docs/audit-post-etape-1.md)

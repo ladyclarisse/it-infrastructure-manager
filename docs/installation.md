@@ -2,7 +2,7 @@
 
 Pour le développement applicatif sans stack conteneurisée, installer les dépendances avec `pnpm install`, renseigner une `DATABASE_URL` PostgreSQL accessible, puis lancer `pnpm dev`. L’identité est fournie par Manus OAuth ; l’environnement doit exposer les variables listées dans `docs/env.example.md`.
 
-Pour l’environnement Docker, fournir les variables hors Git, puis lancer la stack sous un nom explicite afin d’éviter toute collision avec d’autres projets :
+Pour l’environnement Docker, partir du modèle non secret `.env.local.example`, le copier localement vers `.env.local`, remplacer les placeholders uniquement sur la machine de développement et ne jamais committer `.env.local`. La variable `DATABASE_URL` doit cibler `postgres:5432` depuis le backend. Lancer ensuite la stack sous un nom explicite afin d’éviter toute collision avec d’autres projets :
 
 ```bash
 docker compose -p it-infrastructure-manager up --build -d
