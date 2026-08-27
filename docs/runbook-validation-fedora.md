@@ -27,6 +27,7 @@ docker --version
 docker compose version
 docker info
 docker ps
+id -nG | tr ' ' '\n' | grep -qx docker || printf 'warning: utilisateur hors groupe docker ; ne pas contourner avec un bypass applicatif\n'
 docker compose -p it-infrastructure-manager config
 ```
 
@@ -81,6 +82,7 @@ curl --fail-with-body --silent --show-error -D /tmp/it-manager-root.headers -o /
 curl --silent --show-error -o /tmp/it-manager-monitoring.body -w 'monitoring_status=%{http_code}\n' http://localhost:3000/api/monitoring/targets
 curl --silent --show-error -o /tmp/it-manager-alerts.body -w 'alerts_status=%{http_code}\n' http://localhost:3000/api/alerts
 curl --silent --show-error -o /tmp/it-manager-incidents.body -w 'incidents_status=%{http_code}\n' http://localhost:3000/api/incidents
+curl --fail-with-body --silent --show-error http://localhost:8080/ >/tmp/it-manager-frontend.body
 ```
 
 Le résultat attendu est `200` pour `/` et `401 UNAUTHORIZED` pour les routes protégées sans session. Ne pas créer de bypass OAuth/RBAC. Une authentification complète nécessite une session Manus valide ; si elle n’est pas disponible sur Fedora, documenter cette limitation et utiliser les tests de contrat existants pour l’absence de session.

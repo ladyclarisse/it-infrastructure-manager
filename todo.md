@@ -154,3 +154,20 @@
 - [x] Créer un script de validation runtime sûr, sans secrets affichés, sans suppression de volumes et sans bypass OAuth/RBAC, si pertinent : `scripts/validate-runtime.sh`.
 - [x] Ajouter les tests nécessaires aux nouveaux artefacts et mettre à jour la matrice de validation sans déclarer Fedora PASS : 3 tests du runbook/script passés ; validation globale 75 tests.
 - [x] Exécuter `pnpm validate`, versionner et pousser la livraison Étape 5.1 sur `main` : 17 fichiers, 75 tests, TypeScript/build PASS ; commit `b925b72` poussé.
+
+# Prompt joint 11 — à traiter
+
+- [x] Lire le prompt joint et extraire ses critères d’acceptation.
+- [x] Auditer l’état actuel du dépôt et identifier les corrections minimales.
+- [x] Implémenter les corrections réalisables avec leurs tests associés.
+- [x] Mettre à jour la documentation et qualifier les limites runtime.
+- [ ] Valider, versionner et pousser la livraison sur `main`.
+
+# Étape 5.2 — Qualification runtime Fedora réelle
+
+- [x] Préserver l’existant et confirmer que la qualification Fedora ne sera pas simulée depuis le sandbox.
+- [x] Compléter le runbook avec accès Docker sans sudo, frontend, healthchecks et collecte avant/après restart.
+- [x] Créer `docs/operations/fedora-runtime-evidence.md` pour encadrer les sorties expurgées à renvoyer.
+- [x] Créer le rapport structuré Étape 5.2 avec domaines PASS/BLOCKED/À MESURER et limitations actuelles.
+- [x] Ajouter les tests strictement nécessaires aux nouveaux artefacts documentaires, sans transformer les tests unitaires en intégration artificielle.
+- [ ] Exécuter `pnpm validate`, versionner et pousser la livraison sur `main` sans déclarer Fedora validé.
