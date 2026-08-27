@@ -73,4 +73,4 @@
 - [x] Étape 3 — ajouter les tests, la documentation, la validation statique et le push sur `main` ; validation runtime Docker/Prometheus explicitement `BLOCKED` faute de runtime conteneur.
 - [x] Étape 3 — compléter les tests monitoring couvrant CRUD target, RBAC, audit et chemins métier réels pour `NOT_CONFIGURED`/observation.
 - [x] Étape 3 — vérifier les contrôles runtime applicatifs disponibles dans le sandbox, au minimum le refus anonyme des routes monitoring, en conservant Docker/Prometheus `BLOCKED`.
-- [x] Étape 3 — créer le commit final, pousser sur `main` et consigner le hash de livraison dans l’audit ; synchronisation finale `ee26ff1`.
+- [x] Étape 3 — créer le commit final, pousser sur `main` et consigner le hash de livraison dans l’audit ; synchronisation finale `2118a6d`.
