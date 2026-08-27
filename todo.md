@@ -129,7 +129,7 @@
 - [x] Auditer l’état Git, Compose, PostgreSQL, migrations, backend, Prometheus, Node Exporter, alerting et tests.
 - [x] Préparer l’environnement local reproductible sans committer de secrets : `.env.local.example` référencé dans `docs/installation.md`, aucun secret versionné.
 - [x] Exécuter `docker compose config`, `up`, `ps`, logs, migrations et redémarrage si le runtime est disponible : **BLOCKED — `docker` absent, commandes en échec avec exit 127**.
-- [x] Exécuter les tests persistants PostgreSQL réels distincts des tests unitaires, ou qualifier ce contrôle BLOCKED avec la raison exacte : **BLOCKED — aucune instance réelle ; 69 tests statiques/unitaires passés**.
+- [x] Exécuter les tests persistants PostgreSQL réels distincts des tests unitaires, ou qualifier ce contrôle BLOCKED avec la raison exacte : **BLOCKED — aucune instance réelle ; 72 tests statiques/unitaires passés**.
 - [x] Vérifier réellement Prometheus, Node Exporter, cible UP, PromQL, Alert, Incident et Audit, ou qualifier chaque contrôle BLOCKED : **BLOCKED — stack conteneur indisponible, aucune preuve inventée**.
 - [x] Tester les endpoints publics/protégés, l’absence de secret et les limites de sécurité : `/` 200, cinq routes monitoring/alertes/incidents `401`, audit des fichiers versionnés sans finding.
 - [x] Créer `docs/validation-operationnelle-etape-5.md` avec commandes, preuves et statuts PASS/PARTIAL/BLOCKED/FAIL.
