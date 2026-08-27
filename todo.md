@@ -89,5 +89,7 @@
 - [x] Étape 4 — ajouter les filtres incidents par utilisateur assigné et par monitoring target.
 - [x] Étape 4 — enrichir les alertes affichées avec cible, règle, durée et statut opérationnel.
 - [x] Étape 4 — créer le commit final Étape 4, pousser sur `main` et consigner le hash final dans l’audit : `569674a`.
-- [ ] Étape 4 — committer et pousser la mise à jour finale de l’audit et du TODO, puis vérifier l’arbre Git propre sur `main`.
-- [ ] Étape 4 — consigner dans l’audit le hash réellement final après le dernier commit synchronisé.
+- [x] Étape 4 — committer et pousser la mise à jour finale de l’audit et du TODO, puis vérifier l’arbre Git propre sur `main` : `e3e6d84`.
+- [x] Étape 4 — consigner dans l’audit le hash réellement final après le dernier commit synchronisé : commit fonctionnel `569674a`, trace documentaire `e3e6d84`.
+- [x] Étape 4 — mettre à jour `docs/audit-post-etape-4.md` avec le hash documentaire final réellement synchronisé `e3e6d84`, puis pousser cette modification.
+- [x] Étape 4 — vérifier l’arbre Git propre sur `main` après le dernier push et clôturer la traçabilité.

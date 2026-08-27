@@ -82,7 +82,7 @@ La liste d’incidents expose les filtres de statut, sévérité, utilisateur as
 
 ## Traçabilité Git
 
-Le commit de livraison Étape 4 `569674a` a été poussé sur la branche `main` du dépôt `ladyclarisse/it-infrastructure-manager`. Aucun secret n’est inclus dans cette contribution.
+Le commit fonctionnel Étape 4 `569674a` a été poussé sur la branche `main`, puis le commit documentaire de traçabilité `e3e6d84` a été synchronisé sur `main` dans le dépôt `ladyclarisse/it-infrastructure-manager`. Aucun secret n’est inclus dans cette contribution.
 
 ## Recommandation Étape 5
 
