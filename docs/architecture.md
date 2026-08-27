@@ -14,11 +14,11 @@ Le projet suit une architecture en couches : React présente les cas d’usage ;
 | `role_permissions` | association rôles/permissions | suppression de l’association |
 | `audit_logs` | traçabilité des actions sensibles | conservation, purge gouvernée ultérieurement |
 
-Les identifiants sont auto-incrémentés, les comptes sont indexés par `email`, `role` et `status`, et les événements par `actorUserId` et `action`. Les relations d’infrastructure futures — `servers`, `workstations`, `network_devices`, `metrics`, `alerts`, `incidents`, `tickets`, `backups` et `documentation` — ne sont pas déclarées implémentées à cette étape.
+Les identifiants sont auto-incrémentés, les comptes sont indexés par `email`, `role` et `status`, et les événements par `actorUserId` et `action`. L’Étape 2 ajoute `assets`, `servers`, `workstations`, `network_devices`, `network_interfaces`, `software`, `software_installations`, `locations` et `asset_relationships`, avec index, uniques et clés étrangères documentés dans `docs/data-model.md`. Les métriques, alertes, incidents, tickets, sauvegardes et documents restent `PLANNED`.
 
 ## RBAC
 
-Les rôles exacts sont `Administrateur`, `Administrateur systèmes/réseaux`, `Technicien`, `Responsable informatique` et `Utilisateur`. La politique est vérifiée côté API. L’interface peut masquer une entrée pour l’ergonomie, mais elle ne constitue jamais le contrôle de sécurité.
+Les rôles exacts sont `Administrateur`, `Administrateur systèmes/réseaux`, `Technicien`, `Responsable informatique` et `Utilisateur`. La politique d’inventaire est vérifiée côté API par `operationsProcedure` pour la lecture et par une procédure réservée aux rôles d’administration pour les mutations. L’interface peut masquer une entrée pour l’ergonomie, mais elle ne constitue jamais le contrôle de sécurité.
 
 ## Flux d’identité
 

@@ -39,3 +39,17 @@
 - [x] Créer et pousser le commit dédié Étape 1.1 sur `main` avant de clôturer la validation finale.
 - [x] Committer et pousser `server/routers.ts` avec le passage explicite de `actorRole`.
 - [x] Relancer `pnpm validate` sur un arbre Git propre identique à `github/main`.
+- [x] Étape 2 : auditer les conventions existantes et figer le périmètre inventaire sans monitoring ni agents.
+- [x] Concevoir le modèle commun `assets` et les domaines serveurs, postes, équipements réseau, interfaces, logiciels, localisations et relations.
+- [x] Créer et appliquer les migrations avec contraintes, index, unicité, timestamps et suppressions explicites.
+- [x] Implémenter les services et procédures API d’inventaire avec permissions backend, recherche et filtres.
+- [x] Construire les écrans frontend d’inventaire, détails, filtres et relations en réutilisant le shell existant.
+- [x] Ajouter les tests unitaires et d’intégration disponibles sans simuler monitoring ou PostgreSQL non disponible.
+- [x] Documenter le modèle, l’API, les états `PLANNED`, `DESIGNED`, `IMPLEMENTED`, `TESTED` et `BLOCKED`.
+- [ ] Valider, versionner et pousser l’Étape 2 sur la branche `main`.
+- [x] Ajouter des états d’erreur UI explicites pour les requêtes et mutations d’inventaire.
+- [x] Ajouter une gestion UI explicite de création de relations ou qualifier la capacité comme DESIGNED sans la revendiquer comme interface livrée.
+- [x] Ajouter des tests d’intégration du routeur inventaire pour permissions, filtres, création, détail et suppression sans prétendre à PostgreSQL.
+- [x] Documenter explicitement l’état exact `TESTED` pour le périmètre inventaire avec ses preuves associées.
+- [x] Ajouter un état d’erreur UI explicite pour l’échec de suppression d’un actif.
+- [x] Étendre les tests du routeur inventaire aux filtres, détail, création autorisée et suppression autorisée/refusée.

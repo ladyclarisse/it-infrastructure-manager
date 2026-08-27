@@ -4,7 +4,7 @@
 
 ## Project presentation
 
-Le projet répond au besoin de disposer d’un control plane professionnel pour les équipes informatiques : identité, droits, traçabilité et, progressivement, inventaire, monitoring, alertes, tickets et documentation. L’Étape 1 se concentre volontairement sur le socle d’identité réellement connecté au mécanisme **Manus OAuth** fourni par le runtime.
+Le projet répond au besoin de disposer d’un control plane professionnel pour les équipes informatiques : identité, droits, traçabilité et inventaire administratif. L’Étape 2 ajoute le registre d’actifs et ses relations sans activer le monitoring, les agents, le SNMP ou la découverte automatique.
 
 Le choix actuel est pragmatique : **React 19 + TypeScript + Tailwind CSS 4** pour une console dense et accessible, **Express + tRPC 11** pour des contrats serveur typés, **Drizzle ORM** pour le modèle versionné, et la base SQL gérée par le runtime. Une cible PostgreSQL/Docker est documentée dans `docs/deployment.md` ; elle sera activée avec une migration dédiée lorsque l’exécution sera déplacée vers un environnement Docker maîtrisé.
 
@@ -22,6 +22,17 @@ Le choix actuel est pragmatique : **React 19 + TypeScript + Tailwind CSS 4** pou
 | Notifications d’alertes | PLANNED | Préparation documentaire uniquement |
 | Pièces jointes hors base | PLANNED | Le stockage objet sera associé dans une étape dédiée |
 
+## État réel de l’Étape 2
+
+| Capacité | État | Périmètre réel |
+|---|---|---|
+| Modèle commun Asset | IMPLEMENTED | Actifs, types, statut, environnement, localisation et attributs administratifs |
+| Inventaire serveurs/postes/réseau | IMPLEMENTED | Listes filtrées par type et tables spécialisées |
+| Interfaces, logiciels et relations | DESIGNED | Modèle relationnel créé ; lecture des interfaces/relations livrée, gestion détaillée progressive |
+| Recherche, filtres et pagination | IMPLEMENTED | Recherche SQL et filtres type, statut, environnement et localisation |
+| Monitoring, agents, SNMP, découverte | PLANNED | Aucun accès réseau réel ni métrique temps réel |
+| PostgreSQL/Docker runtime | BLOCKED | Runtime conteneur PostgreSQL non disponible dans l’environnement audité |
+
 ## Démarrage
 
 ```bash
@@ -35,7 +46,7 @@ Les variables sont injectées par l’environnement géré. Pour un déploiement
 
 ## Architecture
 
-Les procédures de `server/routers.ts` exposent les contrats et délèguent les cas d’usage à `server/services/`, qui s’appuie sur `server/db.ts`. Le middleware RBAC de `server/_core/trpc.ts` est exécuté côté serveur ; l’interface ne fait qu’améliorer l’ergonomie. `drizzle/schema.ts` décrit les utilisateurs, rôles, permissions et journaux. Les modules d’infrastructure sont volontairement absents du runtime de cette étape et décrits comme `PLANNED`.
+Les procédures de `server/routers.ts` exposent les contrats et délèguent les cas d’usage à `server/services/`, qui s’appuie sur `server/db.ts`. Le middleware RBAC de `server/_core/trpc.ts` est exécuté côté serveur ; l’interface ne fait qu’améliorer l’ergonomie. `drizzle/schema.ts` décrit l’identité et le modèle commun `assets` avec ses spécialisations, interfaces, logiciels, localisations et relations.
 
 ## Pitch entretien
 
@@ -53,3 +64,7 @@ IT Infrastructure Manager est un control plane pensé pour une équipe informati
 - [Audit post-Étape 1](docs/audit-post-etape-1.md)
 - [Feuille de route](docs/update.md)
 - [Dépannage](docs/troubleshooting.md)
+- [Inventaire](docs/inventory.md)
+- [Modèle de données](docs/data-model.md)
+- [API inventaire](docs/api-inventory.md)
+- [Sécurité RBAC](docs/security-rbac.md)

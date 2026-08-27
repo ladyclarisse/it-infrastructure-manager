@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarInset, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider, SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
 import { startLogin } from "@/const";
-import { Activity, ClipboardList, FileKey2, LayoutDashboard, LogOut, PanelLeft, ShieldCheck, Users } from "lucide-react";
+import { Activity, Boxes, ClipboardList, FileKey2, LayoutDashboard, LogOut, PanelLeft, ShieldCheck, Users } from "lucide-react";
 import { CSSProperties, useEffect, useState } from "react";
 import { useLocation } from "wouter";
 import { DashboardLayoutSkeleton } from "./DashboardLayoutSkeleton";
@@ -14,6 +14,7 @@ const menuItems = [
   { icon: Users, label: "Utilisateurs", path: "/users" },
   { icon: ShieldCheck, label: "Rôles & permissions", path: "/roles" },
   { icon: ClipboardList, label: "Journal d’audit", path: "/audit" },
+  { icon: Boxes, label: "Infrastructure", path: "/infrastructure" },
   { icon: Activity, label: "Monitoring", path: "/monitoring", status: "PLANNED" },
   { icon: FileKey2, label: "Sauvegardes", path: "/backups", status: "PLANNED" },
 ];
