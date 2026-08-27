@@ -14,7 +14,7 @@ Le choix actuel est pragmatique : **React 19 + TypeScript + Tailwind CSS 4** pou
 |---|---|---|
 | Authentification Manus OAuth | TESTED | Session cookie signée, récupération de l’identité et déconnexion du socle |
 | Protection des endpoints | IMPLEMENTED | `protectedProcedure` refuse les requêtes anonymes ou les comptes désactivés |
-| RBAC serveur | IMPLEMENTED | Les cinq rôles sont contrôlés côté API |
+| RBAC serveur | TESTED | Les cinq rôles sont contrôlés côté API, avec anti-escalade et anti-auto-modification |
 | Gestion utilisateurs | IMPLEMENTED | Recherche, consultation, modification de rôle et activation/désactivation |
 | Journal d’audit | IMPLEMENTED | Contrôles de session, déconnexion et changements d’accès |
 | Console React | IMPLEMENTED | Vue d’ensemble, utilisateurs, rôles, audit, responsive |
@@ -31,11 +31,11 @@ pnpm check
 pnpm test
 ```
 
-Les variables sont injectées par l’environnement géré. Pour un déploiement autonome, copier `.env.example` vers `.env` et renseigner les valeurs hors Git ; aucun secret n’est fourni dans ce dépôt.
+Les variables sont injectées par l’environnement géré. Pour un déploiement autonome, consulter `docs/env.example.md` et renseigner les valeurs hors Git ; aucun secret n’est fourni dans ce dépôt.
 
 ## Architecture
 
-Les procédures de `server/routers.ts` orchestrent les cas d’usage et délèguent les accès SQL à `server/db.ts`. Le middleware RBAC de `server/_core/trpc.ts` est exécuté côté serveur ; l’interface ne fait qu’améliorer l’ergonomie. `drizzle/schema.ts` décrit les utilisateurs, rôles, permissions et journaux. Les modules d’infrastructure sont volontairement absents du runtime de cette étape et décrits comme `PLANNED`.
+Les procédures de `server/routers.ts` exposent les contrats et délèguent les cas d’usage à `server/services/`, qui s’appuie sur `server/db.ts`. Le middleware RBAC de `server/_core/trpc.ts` est exécuté côté serveur ; l’interface ne fait qu’améliorer l’ergonomie. `drizzle/schema.ts` décrit les utilisateurs, rôles, permissions et journaux. Les modules d’infrastructure sont volontairement absents du runtime de cette étape et décrits comme `PLANNED`.
 
 ## Pitch entretien
 
@@ -49,5 +49,7 @@ IT Infrastructure Manager est un control plane pensé pour une équipe informati
 - [Contrat API](docs/api.md)
 - [Déploiement](docs/deployment.md)
 - [Sécurité](docs/security.md)
+- [RBAC](docs/rbac.md)
+- [Audit post-Étape 1](docs/audit-post-etape-1.md)
 - [Feuille de route](docs/update.md)
 - [Dépannage](docs/troubleshooting.md)

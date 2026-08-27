@@ -6,7 +6,7 @@
 
 # ÉTAPE 1 VALIDÉE AVEC RÉSERVES
 
-Le socle d’identité est exécutable dans le runtime géré : le frontend, le backend, l’authentification Manus OAuth, la protection serveur RBAC, la consultation des utilisateurs, les migrations SQL actives et les tests unitaires passent les vérifications disponibles. La réserve principale concerne la divergence entre la base réellement utilisée par l’application et la cible PostgreSQL Docker, ainsi que l’absence de tests d’intégration persistants des mutations utilisateurs. Docker n’a pas pu être lancé dans l’environnement d’audit.
+Le socle d’identité est exécutable dans le runtime géré : le frontend, le backend, l’authentification Manus OAuth, la protection serveur RBAC, la consultation des utilisateurs, les migrations SQL actives et les tests unitaires passent les vérifications disponibles. La réserve principale concerne la divergence entre la base réellement utilisée par l’application et la cible PostgreSQL Docker, ainsi que l’absence de tests d’intégration persistants des mutations utilisateurs. La vulnérabilité de promotion potentielle du Responsable informatique vers Administrateur a été corrigée côté backend et couverte par des tests de non-escalade. Docker n’a pas pu être lancé dans l’environnement d’audit.
 
 ## B. Inventaire du dépôt
 
@@ -35,11 +35,11 @@ Les états utilisés sont exclusivement `PLANNED`, `DESIGNED`, `IMPLEMENTED`, `T
 | Authentification | TESTED | Le serveur a retrouvé une session utilisateur dans le navigateur ; `auth.me` sans session répond HTTP 200 avec `null`, et le logout possède un test dédié. |
 | Utilisateurs | IMPLEMENTED | `users.list`, la recherche, la modification de rôle et l’activation/désactivation sont codées et l’écran affiche les données de la base active ; les mutations réussies persistantes ne sont pas couvertes par un test d’intégration. |
 | Rôles | IMPLEMENTED | Les cinq rôles sont présents dans `ROLE_SLUGS`, le catalogue persistant est seedé en base et l’interface les expose. Les permissions atomiques ne sont pas seedées ni utilisées par les procédures actuelles. |
-| RBAC | TESTED | Six tests couvrent refus anonyme, accès du Responsable informatique, refus de l’Utilisateur, accès audit de l’Administrateur, auto-désactivation et rejet d’un rôle inconnu. |
+| RBAC | TESTED | Les tests couvrent refus anonyme, accès du Responsable informatique, refus de l’Utilisateur, accès audit de l’Administrateur, anti-auto-modification, anti-escalade Responsable informatique → Administrateur, refus Technicien/Utilisateur, compte désactivé et rejet d’un rôle inconnu. |
 | Audit logs | IMPLEMENTED | La table et ses index existent ; des lignes `AUTH_SESSION_CHECK` ont été observées en base ; le code prévoit `AUTH_LOGIN_SUCCESS`, `AUTH_LOGOUT` et `USER_ACCESS_UPDATED`. L’écriture de chaque mutation n’est pas testée par une intégration dédiée. |
 | OAuth | TESTED | Le callback OAuth valide `code` et `state`, vérifie le nonce, crée une session et redirige ; le runtime a fourni un utilisateur authentifié. |
 | Migrations | TESTED | Trois migrations générées sont versionnées ; les migrations RBAC et contraintes ont été appliquées à la base active ; les FK et règles `CASCADE`, `SET NULL` et `RESTRICT` ont été vérifiées en lecture seule. |
-| Tests | TESTED | Trois fichiers de test, huit cas exécutés, huit réussites : `pnpm test` et `pnpm validate` passent. Ce sont principalement des tests de procédures et de structure, non des intégrations multi-services. |
+| Tests | TESTED | Quatre fichiers de test, seize cas exécutés avec succès sur les tests ciblés ; les tests ajoutés couvrent désormais réactivation, anti-escalade et audit au niveau service, mais restent des tests avec doubles de données, non des intégrations PostgreSQL multi-services. |
 | Documentation API | DESIGNED | `docs/api.md` documente les procédures livrées et les ressources REST/OpenAPI prévues, en laissant les endpoints REST non implémentés hors de l’état `IMPLEMENTED`. |
 | README | IMPLEMENTED | Le README présente l’objectif, l’état réel, l’architecture, le pitch et les liens documentaires ; il indique la distinction runtime géré/target PostgreSQL. |
 
@@ -55,7 +55,7 @@ La protection backend est réelle pour les procédures tRPC : `users.list`, `use
 
 Les rôles effectivement reconnus par l’API sont `admin`, `systems_network_admin`, `technician`, `it_manager` et `user`, affichés avec les libellés exacts demandés. Le contrôle actuel est une allowlist de rôles dans le middleware, non une résolution de permissions à partir de `role_permissions`. La table `permissions` et la table d’association existent et sont contraintes, mais elles ne contiennent pas encore un catalogue de permissions opérationnel consommé par les procédures.
 
-L’auto-désactivation est refusée dans `server/services/identity.ts`. Le code ne refuse pas explicitement à un Responsable informatique de promouvoir un autre compte en Administrateur ; comme `identityAdminProcedure` autorise ce rôle à appeler `users.updateAccess`, ce point constitue un **problème important** d’escalade potentielle à corriger avant une gestion multi-administrateurs en production. La modification du propre rôle par un Administrateur n’est pas interdite, même si elle ne permet pas d’obtenir un rôle supérieur.
+L’auto-modification est refusée dans `server/services/identity.ts`. La hiérarchie backend interdit au Responsable informatique d’attribuer `admin`, interdit à Technicien et Utilisateur d’appeler la mutation, et refuse la modification d’une cible de niveau supérieur. La modification du propre rôle ou statut est bloquée pour tous les acteurs. La promotion vers `admin` est réservée à l’Administrateur.
 
 ## F. Journalisation
 
@@ -88,11 +88,11 @@ Le runtime Docker n’est pas disponible dans le sandbox : **BLOCKED — runtime
 | RBAC — rôle inconnu refusé | `server/rbac.test.ts` | TESTED | Zod rejette la valeur hors catalogue. |
 | Schéma — tables exportées | `server/schema.test.ts` | TESTED | Vérifie seulement l’existence des cinq exports, pas la persistance ni toutes les contraintes. |
 
-Commandes passées : `pnpm check`, `pnpm test`, `pnpm build`, `pnpm validate`, appels HTTP à `/`, `/api/trpc/auth.me` et `/api/trpc/users.list`, ainsi que des requêtes SQL de lecture sur les tables et contraintes. Les résultats sont respectivement TypeScript sans erreur, huit tests réussis, build réussi, API root HTTP 200, `auth.me` sans session HTTP 200 avec `null`, et `users.list` sans session HTTP 401.
+Commandes passées : `pnpm check`, `pnpm test`, `pnpm build`, `pnpm validate`, appels HTTP à `/`, `/api/trpc/auth.me` et `/api/trpc/users.list`, ainsi que des requêtes SQL de lecture sur les tables et contraintes. Les résultats sont respectivement TypeScript sans erreur, seize tests réussis, build réussi, API root HTTP 200, `auth.me` sans session HTTP 200 avec `null`, et `users.list` sans session HTTP 401.
 
 ## J. Tests manquants avant l’Étape 2
 
-Les priorités de test sont les mutations réussies de changement de rôle, désactivation et réactivation, avec vérification de la persistance et de la ligne d’audit associée. Il faut également tester l’accès d’un compte désactivé, la tentative de promotion par un Responsable informatique, la séparation exacte des permissions atomiques, la persistance sur un vrai PostgreSQL, les migrations dans un environnement vierge, le démarrage Compose et les interactions frontend → API → base.
+Les tests de service couvrent désormais le changement de rôle, la réactivation et la ligne d’audit associée ; il reste à tester ces mêmes mutations avec persistance réelle, ainsi que la désactivation persistante. Il faut également tester l’accès d’un compte désactivé, la tentative de promotion par un Responsable informatique, la séparation exacte des permissions atomiques, la persistance sur un vrai PostgreSQL, les migrations dans un environnement vierge, le démarrage Compose et les interactions frontend → API → base.
 
 La couverture HTTP doit être étendue à `users.list` authentifié, `users.updateAccess` authentifié et aux réponses d’erreur de validation. Les tests actuels avec `appRouter.createCaller` ne constituent pas des tests d’intégration de la couche HTTP ni des interactions entre services.
 
@@ -118,7 +118,7 @@ La branche active est `main`. Le dernier commit local et distant est `b0b8d0b` (
 |---|---|---|
 | Critique | Aucun problème critique démontré dans le périmètre audité. | — |
 | Important | Le runtime applicatif utilise MySQL alors que la cible Docker annonce PostgreSQL. | Déploiement autonome non interchangeable ; migrations et driver doivent être alignés avant usage PostgreSQL réel. |
-| Important | Un Responsable informatique peut potentiellement attribuer le rôle Administrateur à une autre identité. | Risque d’escalade de privilèges ; règle métier à restreindre côté API. |
+| Important | Le risque initial de promotion par un Responsable informatique a été corrigé ; la matrice de permissions dynamique n’est toutefois pas encore utilisée. | La promotion `admin` est désormais réservée à l’Administrateur ; la résolution dynamique des permissions reste à venir. |
 | Important | Les mutations utilisateurs réussies et leur audit ne sont pas testés avec persistance réelle. | Le statut `IMPLEMENTED` est justifié par le code, mais pas `TESTED` pour ces flux. |
 | Important | Docker et la communication inter-services ne sont pas exécutables dans l’environnement actuel. | Healthchecks, démarrage et volumes restent `BLOCKED`. |
 | Mineur | Le service frontend n’est pas déclaré dans `docker-compose.yml`. | La cible Docker est incomplète par rapport aux Dockerfiles présents. |

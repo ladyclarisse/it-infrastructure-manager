@@ -28,3 +28,12 @@
 - [x] Réaliser l’audit technique post-Étape 1 complet, sans commencer l’Étape 2 ni modifier l’architecture.
 - [x] Produire une matrice d’état avec preuves concrètes pour frontend, backend, base, Docker, auth, RBAC, audit, migrations, tests, documentation et GitHub.
 - [x] Identifier précisément les fonctionnalités fonctionnelles, seulement implémentées, bloquées, non testées, les problèmes classés par gravité et la recommandation de passage à l’Étape 2.
+- [x] Corriger côté backend l’escalade Responsable informatique → Administrateur et les auto-promotions.
+- [x] Vérifier les chemins de modification de rôle, désactivation, réactivation et suppression éventuelle sans ajouter de surface non livrée.
+- [x] Journaliser les changements de privilèges réussis et refusés sans secret ni mot de passe.
+- [x] Ajouter les tests RBAC anti-escalade et les tests des mutations utilisateurs possibles sans simuler PostgreSQL.
+- [x] Documenter précisément l’état `BLOCKED — PostgreSQL runtime unavailable` et la validation Docker statique.
+- [x] Mettre à jour la sécurité, le RBAC, le README et l’audit post-Étape 1 avec la vulnérabilité corrigée.
+- [x] Exécuter la validation finale, créer un commit dédié et pousser la correction sur `main`.
+- [x] Vérifier explicitement la réactivation et documenter l’absence de suppression utilisateur livrée.
+- [ ] Créer et pousser le commit dédié Étape 1.1 sur `main` avant de clôturer la validation finale.

@@ -26,10 +26,20 @@ describe("RBAC identity procedures", () => {
   });
   it("rejects self-disabling before any database mutation", async () => {
     const caller = appRouter.createCaller(context("admin", 10));
-    await expect(caller.users.updateAccess({ userId: 10, status: "disabled" })).rejects.toThrow("cannot disable your own account");
+    await expect(caller.users.updateAccess({ userId: 10, status: "disabled" })).rejects.toThrow("cannot modify your own access");
   });
   it("rejects unknown role values at the API boundary", async () => {
     const caller = appRouter.createCaller(context("admin"));
     await expect(caller.users.updateAccess({ userId: 999, role: "unknown" as never })).rejects.toMatchObject({ code: "BAD_REQUEST" });
+  });
+  it("blocks a technician from calling the access mutation", async () => {
+    const caller = appRouter.createCaller(context("technician"));
+    await expect(caller.users.updateAccess({ userId: 22, role: "user" })).rejects.toMatchObject({ code: "FORBIDDEN" });
+  });
+  it("blocks protected operations for a disabled account", async () => {
+    const disabled = context("admin");
+    disabled.user = { ...disabled.user!, status: "disabled" };
+    const caller = appRouter.createCaller(disabled);
+    await expect(caller.users.list()).rejects.toMatchObject({ code: "FORBIDDEN" });
   });
 });
