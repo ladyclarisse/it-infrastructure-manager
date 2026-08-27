@@ -189,3 +189,12 @@
 - [x] Renforcer le test afin de contrôler chaque installation concernée, pas seulement la première occurrence.
 - [x] Mettre à jour le rapport Étape 5.3 pour distinguer l’état du dépôt courant de la preuve Fedora échouée/stale éventuelle.
 - [x] Exécuter `pnpm validate` et créer un checkpoint dédié ; laisser le build Fedora réel en FAIL tant qu’un nouveau résultat post-correctif n’est pas fourni.
+
+# Étape 5.3.2 — Résolution divergence Git / livraison réelle
+
+- [x] Auditer le checkout courant, HEAD, remote, branche et présence réelle de la correction Docker.
+- [x] Réappliquer la correction uniquement si elle est absente du checkout courant.
+- [x] Vérifier chaque stage Docker, `.dockerignore`, `patchedDependencies` et le patch réel.
+- [x] Exécuter `pnpm validate` et vérifier les contenus via Git avant livraison.
+- [x] Sauvegarder la version, vérifier `origin/main` et fournir le hash complet réellement disponible.
+- [x] Documenter la cause de divergence et demander une nouvelle relance du build Fedora sans qualifier PostgreSQL/Prometheus/Alert/Incident.
