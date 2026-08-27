@@ -64,3 +64,13 @@
 - [x] Aligner `docs/api-inventory.md`, `README.md` et l’audit Étape 2.1 sur la façade REST désormais implémentée.
 - [x] Vérifier réellement la surface HTTP REST : `GET /api/assets`, `GET /api/network-interfaces` et `POST /api/assets` refusent l’anonyme avec `401 UNAUTHORIZED` sans mutation.
 - [x] Documenter exhaustivement les ressources REST livrées et la séparation restante avec tRPC frontend.
+- [x] Étape 3 — auditer l’architecture existante et préserver la séparation inventaire/monitoring.
+- [x] Étape 3 — créer le modèle `monitoring_targets`, les statuts distincts et les permissions monitoring.
+- [x] Étape 3 — configurer Prometheus et Node Exporter avec Docker Compose, healthchecks et limites documentées.
+- [x] Étape 3 — implémenter le service Prometheus avec timeouts, erreurs différenciées et PromQL centralisé.
+- [x] Étape 3 — exposer l’API REST monitoring authentifiée et protégée par RBAC.
+- [x] Étape 3 — construire l’interface monitoring sans métriques simulées et avec états explicites.
+- [x] Étape 3 — ajouter les tests, la documentation, la validation statique et le push sur `main` ; validation runtime Docker/Prometheus explicitement `BLOCKED` faute de runtime conteneur.
+- [ ] Étape 3 — compléter les tests monitoring couvrant CRUD target, RBAC, audit et chemins métier réels pour `NOT_CONFIGURED`/observation.
+- [ ] Étape 3 — vérifier les contrôles runtime applicatifs disponibles dans le sandbox, au minimum le refus anonyme des routes monitoring, en conservant Docker/Prometheus `BLOCKED`.
+- [ ] Étape 3 — créer le commit final, pousser sur `main` et consigner le hash Git dans l’audit.

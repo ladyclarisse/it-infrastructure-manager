@@ -13,6 +13,9 @@ OWNER_OPEN_ID=replace-with-owner-open-id
 POSTGRES_DB=it_infrastructure
 POSTGRES_USER=it_manager
 POSTGRES_PASSWORD=replace-with-a-local-secret
+PROMETHEUS_URL=http://prometheus:9090
+PROMETHEUS_TIMEOUT_MS=3000
+MONITORING_ENABLED=true
 ```
 
 Dans le projet géré, les variables d’environnement et secrets sont injectés par la configuration sécurisée ; aucun fichier `.env.example` n’est modifié directement.

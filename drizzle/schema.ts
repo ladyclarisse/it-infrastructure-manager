@@ -5,6 +5,8 @@ export const roleSlugs = ["admin", "systems_network_admin", "technician", "it_ma
 export const assetTypes = ["server", "workstation", "network_device"] as const;
 export const assetStatuses = ["ACTIVE", "INACTIVE", "MAINTENANCE", "RETIRED", "UNKNOWN"] as const;
 export const environments = ["PRODUCTION", "DEVELOPMENT", "TEST", "LAB", "OTHER"] as const;
+export const monitoringTypes = ["NODE_EXPORTER", "WINDOWS_EXPORTER", "SNMP", "DOCKER", "PROXMOX", "CUSTOM"] as const;
+export const monitoringStatuses = ["NOT_CONFIGURED", "CONFIGURED", "UP", "DOWN", "UNKNOWN"] as const;
 
 export const roles = mysqlTable("roles", { id: int("id").autoincrement().primaryKey(), slug: varchar("slug", { length: 64 }).notNull(), name: varchar("name", { length: 128 }).notNull(), description: text("description"), createdAt: timestamp("createdAt").defaultNow().notNull() }, table => ({ slugUnique: uniqueIndex("roles_slug_unique").on(table.slug) }));
 export const permissions = mysqlTable("permissions", { id: int("id").autoincrement().primaryKey(), slug: varchar("slug", { length: 128 }).notNull(), name: varchar("name", { length: 128 }).notNull(), description: text("description") }, table => ({ slugUnique: uniqueIndex("permissions_slug_unique").on(table.slug) }));
@@ -27,6 +29,8 @@ export const softwareInstallations = mysqlTable("software_installations", { id: 
 
 export const assetRelationships = mysqlTable("asset_relationships", { id: int("id").autoincrement().primaryKey(), sourceAssetId: int("sourceAssetId").notNull(), destinationAssetId: int("destinationAssetId").notNull(), relationshipType: varchar("relationshipType", { length: 64 }).notNull(), sourceInterfaceId: int("sourceInterfaceId"), destinationInterfaceId: int("destinationInterfaceId"), description: text("description"), createdAt: timestamp("createdAt").defaultNow().notNull() }, table => ({ relationUnique: uniqueIndex("asset_relationship_unique").on(table.sourceAssetId, table.destinationAssetId, table.relationshipType), sourceIdx: index("asset_relationship_source_idx").on(table.sourceAssetId), destinationIdx: index("asset_relationship_destination_idx").on(table.destinationAssetId), sourceFk: foreignKey({ columns: [table.sourceAssetId], foreignColumns: [assets.id], name: "asset_relationship_source_fk" }).onDelete("cascade"), destinationFk: foreignKey({ columns: [table.destinationAssetId], foreignColumns: [assets.id], name: "asset_relationship_destination_fk" }).onDelete("restrict"), sourceInterfaceFk: foreignKey({ columns: [table.sourceInterfaceId], foreignColumns: [networkInterfaces.id], name: "asset_relationship_source_interface_fk" }).onDelete("set null"), destinationInterfaceFk: foreignKey({ columns: [table.destinationInterfaceId], foreignColumns: [networkInterfaces.id], name: "asset_relationship_destination_interface_fk" }).onDelete("set null") }));
 
+export const monitoringTargets = mysqlTable("monitoring_targets", { id: int("id").autoincrement().primaryKey(), assetId: int("assetId").notNull(), type: mysqlEnum("type", monitoringTypes).notNull().default("NODE_EXPORTER"), endpoint: varchar("endpoint", { length: 255 }).notNull(), port: int("port").notNull().default(9100), enabled: int("enabled").notNull().default(0), status: mysqlEnum("status", monitoringStatuses).notNull().default("NOT_CONFIGURED"), labels: text("labels"), lastObservedAt: timestamp("lastObservedAt"), createdAt: timestamp("createdAt").defaultNow().notNull(), updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull() }, table => ({ assetTypeUnique: uniqueIndex("monitoring_targets_asset_type_endpoint_unique").on(table.assetId, table.type, table.endpoint, table.port), assetIdx: index("monitoring_targets_asset_idx").on(table.assetId), statusIdx: index("monitoring_targets_status_idx").on(table.status), enabledIdx: index("monitoring_targets_enabled_idx").on(table.enabled), assetFk: foreignKey({ columns: [table.assetId], foreignColumns: [assets.id], name: "monitoring_targets_asset_fk" }).onDelete("cascade") }));
+
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 export type Role = typeof roles.$inferSelect;
@@ -37,3 +41,5 @@ export type InsertAsset = typeof assets.$inferInsert;
 export type Location = typeof locations.$inferSelect;
 export type Software = typeof software.$inferSelect;
 export type AssetRelationship = typeof assetRelationships.$inferSelect;
+export type MonitoringTarget = typeof monitoringTargets.$inferSelect;
+export type InsertMonitoringTarget = typeof monitoringTargets.$inferInsert;

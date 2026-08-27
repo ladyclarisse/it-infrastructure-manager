@@ -1,6 +1,14 @@
 import { createAuditLog, getRoles, listAuditLogs } from "../db";
 import { ROLE_SLUGS } from "../_core/trpc";
 
+export const MONITORING_PERMISSION_CATALOG = [
+  { slug: "monitoring.read", label: "Lire le monitoring" },
+  { slug: "monitoring.create", label: "Créer une target" },
+  { slug: "monitoring.update", label: "Modifier une target" },
+  { slug: "monitoring.delete", label: "Supprimer une target" },
+  { slug: "monitoring.metrics", label: "Lire les métriques" },
+] as const;
+
 export const ROLE_CATALOG = [
   { slug: ROLE_SLUGS.ADMIN, label: "Administrateur", description: "Accès complet à la console." },
   { slug: ROLE_SLUGS.SYSTEMS_NETWORK_ADMIN, label: "Administrateur systèmes/réseaux", description: "Gestion de l’infrastructure et du monitoring." },

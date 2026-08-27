@@ -31,7 +31,8 @@ Le choix actuel est pragmatique : **React 19 + TypeScript + Tailwind CSS 4** pou
 | Interfaces, logiciels, installations et relations | IMPLEMENTED | CRUD détaillé, validations, audits, catalogue frontend et façade REST native |
 | Sous-types réseau | IMPLEMENTED | `router`, `switch`, `firewall`, `access_point`, `other` |
 | Recherche, filtres et pagination | IMPLEMENTED | Recherche SQL et filtres type, statut, environnement et localisation |
-| Monitoring, agents, SNMP, découverte | PLANNED | Aucun accès réseau réel ni métrique temps réel |
+| Monitoring Prometheus/Node Exporter | IMPLEMENTED | Cibles, service Prometheus, API monitoring et métriques réelles sans simulation |
+| Windows Exporter, SNMP, agents, découverte | PLANNED | Aucun exporter secondaire, scan ou agent propriétaire |
 | PostgreSQL/Docker runtime | BLOCKED | Runtime conteneur PostgreSQL non disponible dans l’environnement audité |
 | Validation Étape 2.1 | TESTED | `pnpm validate` : 38 tests, TypeScript et build réussis ; façade REST testée par mapping et enregistrement |
 
@@ -71,3 +72,8 @@ IT Infrastructure Manager est un control plane pensé pour une équipe informati
 - [Modèle de données](docs/data-model.md)
 - [API inventaire](docs/api-inventory.md)
 - [Sécurité RBAC](docs/security-rbac.md)
+- [Monitoring](docs/monitoring.md)
+- [Prometheus](docs/prometheus.md)
+- [Node Exporter](docs/node-exporter.md)
+- [API monitoring](docs/monitoring-api.md)
+- [Dépannage monitoring](docs/monitoring-troubleshooting.md)

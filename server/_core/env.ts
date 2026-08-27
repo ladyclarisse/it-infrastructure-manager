@@ -7,4 +7,7 @@ export const ENV = {
   isProduction: process.env.NODE_ENV === "production",
   forgeApiUrl: process.env.BUILT_IN_FORGE_API_URL ?? "",
   forgeApiKey: process.env.BUILT_IN_FORGE_API_KEY ?? "",
+  prometheusUrl: process.env.PROMETHEUS_URL ?? "http://localhost:9090",
+  prometheusTimeoutMs: Number(process.env.PROMETHEUS_TIMEOUT_MS ?? 3000),
+  monitoringEnabled: process.env.MONITORING_ENABLED !== "false",
 };

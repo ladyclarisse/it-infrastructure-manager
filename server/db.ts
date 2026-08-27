@@ -1,6 +1,6 @@
 import { and, desc, eq, like, or, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { assets, assetRelationships, auditLogs, Asset, InsertAsset, locations, networkDevices, networkInterfaces, roles, software, softwareInstallations, users, InsertUser } from "../drizzle/schema";
+import { assets, assetRelationships, auditLogs, Asset, InsertAsset, locations, networkDevices, networkInterfaces, roles, software, softwareInstallations, users, InsertUser, monitoringTargets } from "../drizzle/schema";
 import { ENV } from "./_core/env";
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -80,3 +80,10 @@ export async function updateLocation(id: number, input: Partial<typeof locations
 export async function deleteLocation(id: number) { const db = await getDb(); if (!db) throw new Error("Database unavailable"); await db.delete(locations).where(eq(locations.id, id)); return { success: true }; }
 export async function updateRelationship(id: number, input: Partial<typeof assetRelationships.$inferInsert>) { const db = await getDb(); if (!db) throw new Error("Database unavailable"); await db.update(assetRelationships).set(input).where(eq(assetRelationships.id, id)); return db.select().from(assetRelationships).where(eq(assetRelationships.id, id)).limit(1).then(rows => rows[0]); }
 export async function deleteRelationship(id: number) { const db = await getDb(); if (!db) throw new Error("Database unavailable"); await db.delete(assetRelationships).where(eq(assetRelationships.id, id)); return { success: true }; }
+
+export async function listMonitoringTargets() { const db = await getDb(); if (!db) return []; return db.select().from(monitoringTargets).orderBy(desc(monitoringTargets.updatedAt)); }
+export async function getMonitoringTargetById(id: number) { const db = await getDb(); if (!db) return undefined; return (await db.select().from(monitoringTargets).where(eq(monitoringTargets.id, id)).limit(1))[0]; }
+export async function getMonitoringTargetByAssetId(assetId: number) { const db = await getDb(); if (!db) return []; return db.select().from(monitoringTargets).where(eq(monitoringTargets.assetId, assetId)).orderBy(desc(monitoringTargets.updatedAt)); }
+export async function createMonitoringTarget(input: typeof monitoringTargets.$inferInsert) { const db = await getDb(); if (!db) throw new Error("Database unavailable"); const result = await db.insert(monitoringTargets).values(input); return getMonitoringTargetById(Number(result[0].insertId)); }
+export async function updateMonitoringTarget(id: number, input: Partial<typeof monitoringTargets.$inferInsert>) { const db = await getDb(); if (!db) throw new Error("Database unavailable"); await db.update(monitoringTargets).set(input).where(eq(monitoringTargets.id, id)); return getMonitoringTargetById(id); }
+export async function deleteMonitoringTarget(id: number) { const db = await getDb(); if (!db) throw new Error("Database unavailable"); await db.delete(monitoringTargets).where(eq(monitoringTargets.id, id)); return { success: true }; }

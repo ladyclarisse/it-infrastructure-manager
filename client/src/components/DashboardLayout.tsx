@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarInset, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider, SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
 import { startLogin } from "@/const";
-import { Activity, Boxes, ClipboardList, FileKey2, LayoutDashboard, ListTree, LogOut, PanelLeft, ShieldCheck, Users } from "lucide-react";
+import { Activity, Boxes, ClipboardList, FileKey2, LayoutDashboard, ListTree, LogOut, PanelLeft, ShieldCheck, Target, Users } from "lucide-react";
 import { CSSProperties, useEffect, useState } from "react";
 import { useLocation } from "wouter";
 import { DashboardLayoutSkeleton } from "./DashboardLayoutSkeleton";
@@ -16,7 +16,8 @@ const menuItems = [
   { icon: ClipboardList, label: "Journal d’audit", path: "/audit" },
   { icon: Boxes, label: "Infrastructure", path: "/infrastructure" },
   { icon: ListTree, label: "Catalogues", path: "/infrastructure/catalogues" },
-  { icon: Activity, label: "Monitoring", path: "/monitoring", status: "PLANNED" },
+  { icon: Activity, label: "Monitoring", path: "/monitoring" },
+  { icon: Target, label: "Targets", path: "/monitoring/targets" },
   { icon: FileKey2, label: "Sauvegardes", path: "/backups", status: "PLANNED" },
 ];
 const ROLE_LABELS: Record<string, string> = { admin: "Administrateur", systems_network_admin: "Administrateur systèmes/réseaux", technician: "Technicien", it_manager: "Responsable informatique", user: "Utilisateur" };
