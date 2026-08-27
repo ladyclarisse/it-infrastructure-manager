@@ -218,3 +218,11 @@
 - [x] Renforcer les tests sur le montage SELinux et l’absence de modification Wouter.
 - [x] Exécuter `pnpm validate`, fournir les fichiers/commit et distinguer VALIDÉ de NON VALIDÉ.
 - [x] Créer un checkpoint après correction et validation, sans inférer une validation applicative d’un build Docker.
+
+# Étape 5.3.4 — Synchronisation SELinux et gel du code
+
+- [x] Inspecter `eb5c960` avec son statut, son diff Compose et son historique.
+- [x] Vérifier que les invariants Wouter, Dockerfiles, entrypoint production, frozen-lockfile et sécurité SELinux sont conservés.
+- [x] Préparer exclusivement le protocole de validation Fedora demandé, sans ajouter de fonctionnalité.
+- [x] Exécuter `pnpm validate`, vérifier le statut et l’historique Git, puis confirmer la référence distante.
+- [x] Créer le checkpoint final du code gelé et fournir le hash sans déclarer de validation runtime Fedora.
