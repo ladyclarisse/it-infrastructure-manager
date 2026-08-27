@@ -71,6 +71,6 @@
 - [x] Étape 3 — exposer l’API REST monitoring authentifiée et protégée par RBAC.
 - [x] Étape 3 — construire l’interface monitoring sans métriques simulées et avec états explicites.
 - [x] Étape 3 — ajouter les tests, la documentation, la validation statique et le push sur `main` ; validation runtime Docker/Prometheus explicitement `BLOCKED` faute de runtime conteneur.
-- [ ] Étape 3 — compléter les tests monitoring couvrant CRUD target, RBAC, audit et chemins métier réels pour `NOT_CONFIGURED`/observation.
-- [ ] Étape 3 — vérifier les contrôles runtime applicatifs disponibles dans le sandbox, au minimum le refus anonyme des routes monitoring, en conservant Docker/Prometheus `BLOCKED`.
-- [ ] Étape 3 — créer le commit final, pousser sur `main` et consigner le hash Git dans l’audit.
+- [x] Étape 3 — compléter les tests monitoring couvrant CRUD target, RBAC, audit et chemins métier réels pour `NOT_CONFIGURED`/observation.
+- [x] Étape 3 — vérifier les contrôles runtime applicatifs disponibles dans le sandbox, au minimum le refus anonyme des routes monitoring, en conservant Docker/Prometheus `BLOCKED`.
+- [x] Étape 3 — créer le commit final, pousser sur `main` et consigner le hash de livraison dans l’audit ; synchronisation finale `ee26ff1`.

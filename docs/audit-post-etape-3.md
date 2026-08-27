@@ -24,10 +24,10 @@ L’Étape 3 livre une fondation de monitoring réel sans métriques simulées. 
 
 ## Validation et limites
 
-La validation applicative est reproductible avec `pnpm validate`, qui exécute le contrôle TypeScript, Vitest et le build Vite/esbuild. Les tests monitoring couvrent la validation SSRF, les résultats Prometheus indisponibles/invalides/vides, le mapping de disponibilité, le RBAC tRPC et les délégations CRUD. Le serveur local confirme le refus anonyme sur `/api/monitoring/targets` et `/api/monitoring/targets/1/status` avec HTTP 401.
+La validation applicative est reproductible avec `pnpm validate`, qui exécute le contrôle TypeScript, Vitest et le build Vite/esbuild. Les tests monitoring couvrent la validation SSRF, les résultats Prometheus indisponibles/invalides/vides, le mapping de disponibilité, les chemins métier CRUD avec audits, l’asset parent inexistant, l’observation `NOT_CONFIGURED`, une observation Prometheus complète, le RBAC tRPC et les délégations CRUD. Le serveur local confirme le refus anonyme sur `/api/monitoring/targets` et `/api/monitoring/targets/1/status` avec HTTP 401.
 
 La chaîne Prometheus → Node Exporter n’a pas été exécutée dans cet environnement, car aucun moteur Docker/Podman n’est disponible. Cette limite reste explicitement `BLOCKED`; elle ne doit pas être reformulée comme une collecte réelle validée. La prochaine validation opérationnelle doit démarrer Compose, vérifier `/metrics`, l’état de la target Prometheus puis une observation `UP` avec valeurs non nulles.
 
 ## Traçabilité Git
 
-La contribution est destinée à la branche `main` du dépôt `ladyclarisse/it-infrastructure-manager`. Le commit de livraison Étape 3 est `4cdc7b6` (`feat(monitoring): establish Prometheus foundation`), poussé sur `main`. Aucune modification n’a été poussée sur une autre branche.
+La contribution est destinée à la branche `main` du dépôt `ladyclarisse/it-infrastructure-manager`. Le commit de livraison Étape 3 est `4cdc7b6` (`feat(monitoring): establish Prometheus foundation`), suivi de la synchronisation documentaire `ee26ff1` (`docs(monitoring): record delivery audit`), tous deux poussés sur `main`. Aucune modification n’a été poussée sur une autre branche.
