@@ -7,7 +7,7 @@ La vérification desktop et mobile de l’écran public confirme une hiérarchie
 | Dimension | Score interne cycle 1 | Score interne cycle 2 | Qualification |
 |---|---:|---:|---|
 | UI UX Pro Max /100 | 76 | 82 | Seuil interne atteint sur les écrans vérifiables |
-| Impeccable /20 | 16 | 18 | Seuil interne atteint, non officiel car le plugin n’a pas pu être installé dans la session |
+| Impeccable | NON ÉVALUÉ | NON ÉVALUÉ | Aucun binaire/plugin réellement disponible dans la session |
 | Anti-AI-slop | Réduit | Satisfaisant sur shell/public | Routes authentifiées à vérifier avec session |
 
-Les scores sont internes et ne constituent pas des sorties officielles. L’écran d’accueil authentifié et les routes métier n’ont pas pu être capturés dans le navigateur sans session OAuth ; leur cohérence est contrôlée par les composants partagés et les tests de build, mais une revue visuelle humaine reste recommandée.
+Le résultat UI UX Pro Max est une sortie réelle de l’outil pour le ciblage UX, mais il ne constitue pas un audit exhaustif chiffré de toutes les routes. Impeccable reste NON ÉVALUÉ : son installation n’a pas abouti. L’écran d’accueil authentifié et les routes métier n’ont pas pu être capturés dans le navigateur sans session OAuth ; leur cohérence est contrôlée par les composants partagés et les tests de build, mais une revue visuelle humaine reste recommandée.

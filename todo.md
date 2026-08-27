@@ -246,15 +246,15 @@
 
 # Étape 7 — Audit UI/UX réel et routes authentifiées
 
-- [ ] Vérifier HEAD, branche, statut, remotes et logs récents avant modification.
-- [ ] Auditer l’architecture frontend, les routes auth, OAuth, layouts, états et composants métier.
-- [ ] Auditer explicitement les symptômes AI-slop et documenter les corrections pertinentes.
-- [ ] Retenter l’utilisation réelle d’UI UX Pro Max et d’Impeccable ; marquer NON ÉVALUÉ sans fabriquer de score si indisponible.
-- [ ] Auditer les routes authentifiées avec la session disponible ou documenter précisément la limite OAuth.
-- [ ] Appliquer uniquement les corrections UI/UX nécessaires, sans modifier l’infrastructure.
-- [ ] Vérifier responsive, accessibilité, états loading/empty/error, interactions et non-régression.
-- [ ] Exécuter `pnpm validate`, contrôler diff/fichiers Git, committer et pousser uniquement les changements Étape 7 sur `main`.
-- [ ] Fournir le rapport structuré avec hash local/distant et statuts réellement observés.
+- [x] Vérifier HEAD, branche, statut, remotes et logs récents avant modification.
+- [x] Auditer l’architecture frontend, les routes auth, OAuth, layouts, états et composants métier.
+- [x] Auditer explicitement les symptômes AI-slop et documenter les corrections pertinentes.
+- [x] Retenter l’utilisation réelle d’UI UX Pro Max et d’Impeccable ; marquer NON ÉVALUÉ sans fabriquer de score si indisponible.
+- [x] Auditer les routes authentifiées avec la session disponible ou documenter précisément la limite OAuth.
+- [x] Appliquer uniquement les corrections UI/UX nécessaires, sans modifier l’infrastructure.
+- [x] Vérifier responsive, accessibilité, états loading/empty/error, interactions et non-régression.
+- [x] Exécuter `pnpm validate`, contrôler diff/fichiers Git, committer et pousser uniquement les changements Étape 7 sur `main`.
+- [x] Fournir le rapport structuré avec hash local/distant et statuts réellement observés.
 
 # Bug — boucle de connexion OAuth
 

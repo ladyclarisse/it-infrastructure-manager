@@ -19,6 +19,9 @@ const appModule = read("../server/_core/app.ts");
 const staticModule = read("../server/_core/static.ts");
 const runtimeFollowup = read("../docs/validation-runtime-backend-prometheus.md");
 const validation533 = read("../docs/validation-operationnelle-etape-5-3-3.md");
+const uiuxCycle2 = read("../docs/uiux-audit-cycle-2.md");
+const uiuxAuthAudit = read("../docs/uiux-auth-audit.md");
+const uiuxStep7 = read("../docs/uiux-audit-etape-7.md");
 
 describe("Étape 5 operational artifacts", () => {
   it("documents a non-secret local environment routed through Docker service names", () => {
@@ -73,6 +76,17 @@ describe("Étape 5 operational artifacts", () => {
     expect(appModule).not.toMatch(/from [\"'].*vite[\"']/);
     expect(staticModule).not.toMatch(/from [\"'].*vite[\"']/);
     expect(compose).toContain("/etc/prometheus/prometheus.yml:ro,Z");
+  });
+
+  it("qualifies the UI/UX and authenticated-route audit without inventing tool results", () => {
+    expect(uiuxCycle2).toContain("Impeccable | NON ÉVALUÉ");
+    expect(uiuxCycle2).not.toContain("Impeccable /20");
+    expect(uiuxAuthAudit).toContain("Aucune session OAuth active");
+    expect(uiuxAuthAudit).toContain("ne peuvent donc pas être déclarés observés");
+    expect(uiuxStep7).toContain("Impeccable");
+    expect(uiuxStep7).toContain("NON ÉVALUÉ");
+    expect(uiuxStep7).toContain("Routes authentifiées");
+    expect(uiuxStep7).not.toContain("Impeccable : 18/20");
   });
 
   it("publishes the Fedora evidence protocol without requesting secrets", () => {
