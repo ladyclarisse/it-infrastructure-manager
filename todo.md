@@ -88,4 +88,6 @@
 - [x] Exécuter `pnpm validate`, conserver les validations Docker/Prometheus/PostgreSQL en `BLOCKED` si indisponibles, puis pousser sur `main`.
 - [x] Étape 4 — ajouter les filtres incidents par utilisateur assigné et par monitoring target.
 - [x] Étape 4 — enrichir les alertes affichées avec cible, règle, durée et statut opérationnel.
-- [ ] Étape 4 — créer le commit final Étape 4, pousser sur `main` et consigner le hash final dans l’audit.
+- [x] Étape 4 — créer le commit final Étape 4, pousser sur `main` et consigner le hash final dans l’audit : `569674a`.
+- [ ] Étape 4 — committer et pousser la mise à jour finale de l’audit et du TODO, puis vérifier l’arbre Git propre sur `main`.
+- [ ] Étape 4 — consigner dans l’audit le hash réellement final après le dernier commit synchronisé.

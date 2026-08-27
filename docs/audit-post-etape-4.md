@@ -80,6 +80,10 @@ La liste d’incidents expose les filtres de statut, sévérité, utilisateur as
 | Tests | `server/alerting.service.test.ts`, `server/alerting.router.test.ts`, `server/alerting.rest.test.ts`, `client/src/pages/alertingPresentation.test.ts` |
 | Documentation | `docs/alerts.md`, `docs/incidents.md`, `docs/alerting-architecture.md`, `docs/incident-lifecycle.md`, `docs/alerting-troubleshooting.md` |
 
+## Traçabilité Git
+
+Le commit de livraison Étape 4 `569674a` a été poussé sur la branche `main` du dépôt `ladyclarisse/it-infrastructure-manager`. Aucun secret n’est inclus dans cette contribution.
+
 ## Recommandation Étape 5
 
 Prioriser une intégration Alertmanager webhook authentifiée ou un worker périodique raisonnable, puis ajouter les notifications et le ticketing comme consommateurs des incidents persistés. Avant cela, exécuter la validation complète sur un runtime Docker/Prometheus réel et confirmer la compatibilité de migration sur PostgreSQL si cette cible devient obligatoire.
