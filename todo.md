@@ -122,7 +122,7 @@
 - [x] Auditer le projet selon ces critères et définir les changements nécessaires.
 - [x] Implémenter les exigences réalisables sans régression, puis ajouter les tests associés : test dédié `server/step5.operational-artifacts.test.ts` ajouté et passé.
 - [x] Mettre à jour la documentation et qualifier précisément les blocages éventuels.
-- [ ] Valider, committer et pousser la livraison sur `main` si les contrôles réussissent.
+- [x] Valider, committer et pousser la livraison sur `main` si les contrôles réussissent : validation statique PASS, runtime opérationnel PARTIAL/BLOCKED, commit `1618fa8` poussé.
 
 # Étape 5 — Validation opérationnelle réelle
 
@@ -133,7 +133,7 @@
 - [x] Vérifier réellement Prometheus, Node Exporter, cible UP, PromQL, Alert, Incident et Audit, ou qualifier chaque contrôle BLOCKED : **BLOCKED — stack conteneur indisponible, aucune preuve inventée**.
 - [x] Tester les endpoints publics/protégés, l’absence de secret et les limites de sécurité : `/` 200, cinq routes monitoring/alertes/incidents `401`, audit des fichiers versionnés sans finding.
 - [x] Créer `docs/validation-operationnelle-etape-5.md` avec commandes, preuves et statuts PASS/PARTIAL/BLOCKED/FAIL.
-- [ ] Exécuter `pnpm validate`, versionner et pousser la clôture Étape 5 sur `main`.
+- [x] Exécuter `pnpm validate`, versionner et pousser la clôture Étape 5 sur `main` : 16 fichiers, 72 tests, TypeScript/build PASS ; commit `1618fa8` poussé.
 - [x] Étape 5 — créer ou mettre à jour une convention d’environnement local reproductible non secrète et la référencer dans la documentation Docker : `.env.local.example` et `docs/installation.md`.
 - [x] Étape 5 — tester les routes protégées monitoring et incidents, puis relancer un audit de secrets sur le dépôt hors dépendances et artefacts : toutes les routes testées répondent `401`, audit sans finding.
 - [x] Étape 5 — ajouter un test automatisé dédié au modèle `.env.local.example`, aux variables PostgreSQL/Prometheus et au rapport opérationnel : 3 tests passés.

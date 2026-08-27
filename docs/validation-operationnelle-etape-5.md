@@ -44,6 +44,10 @@ La validation statique a été exécutée avec `pnpm validate`, qui enchaîne le
 | Secrets dans Git/logs | PASS avec assainissement local | Audit des fichiers versionnés : aucun motif secret non qualifié ; les jetons Bearer historiques détectés dans les logs locaux ont été remplacés par `REDACTED` |
 | Restart/persistance volume | BLOCKED | Aucun conteneur ni volume PostgreSQL disponible à redémarrer |
 
+## Synchronisation Git
+
+La livraison Étape 5 est commitée sur `main` sous le hash `1618fa8` et poussée vers `https://github.com/ladyclarisse/it-infrastructure-manager`. L’arbre était propre après ce push. Ce commit contient le rapport opérationnel, le modèle `.env.local.example` et le test automatisé des artefacts.
+
 ## Preuves non inventées
 
 Aucune cible n’est déclarée `UP`, aucune métrique Node Exporter n’est déclarée observée et aucune alerte ou incident n’est déclaré persisté par cette étape. Les tests unitaires, les tests de contrat et le test d’invariants de migration restent distincts d’un test PostgreSQL réel.
