@@ -198,3 +198,13 @@
 - [x] Exécuter `pnpm validate` et vérifier les contenus via Git avant livraison.
 - [x] Sauvegarder la version, vérifier `origin/main` et fournir le hash complet réellement disponible.
 - [x] Documenter la cause de divergence et demander une nouvelle relance du build Fedora sans qualifier PostgreSQL/Prometheus/Alert/Incident.
+
+# Étape runtime suivante — Backend Vite et Prometheus SELinux
+
+- [x] Auditer package.json, build backend, références Vite dans le bundle et Compose Prometheus.
+- [x] Corriger le runtime backend selon la cause démontrée, sans déplacer Vite aveuglément ni casser la séparation build/runtime.
+- [x] Corriger le bind mount Prometheus avec l’option SELinux portable appropriée, sans désactiver SELinux ni élargir les permissions hôte.
+- [x] Ajouter ou renforcer les tests de régression backend runtime et Compose.
+- [x] Exécuter `pnpm validate` et documenter précisément les résultats.
+- [x] Documenter que le rebuild et les healthchecks Fedora réels restent à confirmer depuis cet environnement sans Docker.
+- [x] Créer un checkpoint uniquement après correction et validation, sans qualifier PostgreSQL/Prometheus applicatif/Alert/Incident/persistance sans preuves dédiées.

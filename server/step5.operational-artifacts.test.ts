@@ -13,6 +13,11 @@ const backendDockerfile = read("../docker/backend.Dockerfile");
 const frontendDockerfile = read("../docker/frontend.Dockerfile");
 const dockerignore = read("../.dockerignore");
 const wouterPatch = read("../patches/wouter@3.7.1.patch");
+const buildPackage = read("../package.json");
+const productionEntry = read("../server/_core/production.ts");
+const appModule = read("../server/_core/app.ts");
+const staticModule = read("../server/_core/static.ts");
+const runtimeFollowup = read("../docs/validation-runtime-backend-prometheus.md");
 
 describe("Étape 5 operational artifacts", () => {
   it("documents a non-secret local environment routed through Docker service names", () => {
@@ -61,6 +66,14 @@ describe("Étape 5 operational artifacts", () => {
     expect(dockerignore).toContain("node_modules");
   });
 
+  it("keeps the production entrypoint independent from Vite", () => {
+    expect(buildPackage).toContain("esbuild server/_core/production.ts");
+    expect(productionEntry).not.toContain("./vite");
+    expect(appModule).not.toMatch(/from [\"'].*vite[\"']/);
+    expect(staticModule).not.toMatch(/from [\"'].*vite[\"']/);
+    expect(compose).toContain("/etc/prometheus/prometheus.yml:ro,Z");
+  });
+
   it("publishes the Fedora evidence protocol without requesting secrets", () => {
     expect(evidence).toContain("docker compose -p it-infrastructure-manager up -d --build");
     expect(evidence).toContain("up{job=\"node-exporter\"}");
@@ -74,5 +87,10 @@ describe("Étape 5 operational artifacts", () => {
     expect(validation53).toContain("| Docker Compose healthchecks | À MESURER |");
     expect(validation53).toContain("| PostgreSQL réel et migrations | BLOCKED |");
     expect(validation53).not.toContain("| Prometheus / Node Exporter / target UP | PASS |");
+    expect(runtimeFollowup).toContain("pnpm install --prod --frozen-lockfile");
+    expect(runtimeFollowup).toContain("`:ro,Z`");
+    expect(runtimeFollowup).toContain("Docker local | NON DISPONIBLE");
+    expect(runtimeFollowup).toContain("SELinux local | NON DISPONIBLE");
+    expect(runtimeFollowup).not.toContain("PostgreSQL applicatif | PASS");
   });
 });
