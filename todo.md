@@ -144,7 +144,7 @@
 - [ ] Auditer le projet et définir les changements techniques requis.
 - [ ] Implémenter les exigences réalisables et ajouter les tests associés.
 - [ ] Mettre à jour la documentation et qualifier les limites runtime.
-- [ ] Valider, versionner et pousser la livraison sur `main`.
+- [x] Valider, versionner et pousser la livraison sur `main` : validation statique PASS, runtime Fedora à mesurer, commit `b925b72` poussé.
 
 # Étape 5.1 — Runbook de validation Fedora
 
@@ -153,4 +153,4 @@
 - [x] Créer `docs/runbook-validation-fedora.md` avec les commandes exactes Docker, PostgreSQL, Prometheus, Node Exporter, Alert, Incident, Audit et persistance.
 - [x] Créer un script de validation runtime sûr, sans secrets affichés, sans suppression de volumes et sans bypass OAuth/RBAC, si pertinent : `scripts/validate-runtime.sh`.
 - [x] Ajouter les tests nécessaires aux nouveaux artefacts et mettre à jour la matrice de validation sans déclarer Fedora PASS : 3 tests du runbook/script passés ; validation globale 75 tests.
-- [ ] Exécuter `pnpm validate`, versionner et pousser la livraison Étape 5.1 sur `main`.
+- [x] Exécuter `pnpm validate`, versionner et pousser la livraison Étape 5.1 sur `main` : 17 fichiers, 75 tests, TypeScript/build PASS ; commit `b925b72` poussé.
