@@ -1,5 +1,5 @@
 
-- [ ] Cloner et rattacher le dépôt GitHub `ladyclarisse/it-infrastructure-manager`, puis contribuer exclusivement sur la branche `main` et pousser la contribution après validation.
+- [x] Cloner et rattacher le dépôt GitHub `ladyclarisse/it-infrastructure-manager`, puis contribuer exclusivement sur la branche `main` et pousser la contribution après validation.
 - [x] Auditer l’état initial réel du dépôt et documenter les décisions d’architecture.
 - [x] Définir le modèle relationnel évolutif pour utilisateurs, rôles, permissions, audit et futures entités d’infrastructure.
 - [x] Préparer les migrations, contraintes, index, timestamps et stratégies de suppression.
@@ -15,7 +15,7 @@
 - [x] Prévoir l’extension future des notifications d’alertes et du stockage de fichiers hors base de données sans les déclarer livrés.
 - [x] Ajouter les tests unitaires et d’intégration initiaux et une commande unique de validation.
 - [ ] Vérifier les migrations, la base, les tests, l’API, l’interface et les communications entre services.
-- [ ] Pousser la contribution validée sur la branche GitHub `main`.
+- [x] Pousser la contribution validée sur la branche GitHub `main`.
 - [x] Ajouter les clés étrangères, contraintes relationnelles et stratégies de suppression dans le modèle RBAC.
 - [x] Extraire la logique métier des routeurs vers une couche `server/services/` dédiée.
 - [x] Journaliser explicitement la connexion réussie dans le flux OAuth/session avec les métadonnées disponibles.
