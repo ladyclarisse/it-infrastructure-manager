@@ -3,40 +3,15 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
+import DashboardLayout from "./components/DashboardLayout";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import AuditPage from "./pages/Audit";
 import Home from "./pages/Home";
+import RolesPage from "./pages/Roles";
+import UsersPage from "./pages/Users";
 
 function Router() {
-  // make sure to consider if you need authentication for certain routes
-  return (
-    <Switch>
-      <Route path={"/"} component={Home} />
-      <Route path={"/404"} component={NotFound} />
-      {/* Final fallback route */}
-      <Route component={NotFound} />
-    </Switch>
-  );
+  return <DashboardLayout><Switch><Route path="/" component={Home} /><Route path="/users" component={UsersPage} /><Route path="/roles" component={RolesPage} /><Route path="/audit" component={AuditPage} /><Route path="/monitoring"><PlannedPage title="Monitoring" description="Les métriques réelles seront connectées avec un agent/exporter et un moteur de collecte." /></Route><Route path="/backups"><PlannedPage title="Sauvegardes" description="Le suivi des jobs de sauvegarde sera ajouté après définition du connecteur de collecte." /></Route><Route path="/404" component={NotFound} /><Route component={NotFound} /></Switch></DashboardLayout>;
 }
-
-// NOTE: About Theme
-// - First choose a default theme according to your design style (dark or light bg), than change color palette in index.css
-//   to keep consistent foreground/background color across components
-// - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
-
-function App() {
-  return (
-    <ErrorBoundary>
-      <ThemeProvider
-        defaultTheme="light"
-        // switchable
-      >
-        <TooltipProvider>
-          <Toaster />
-          <Router />
-        </TooltipProvider>
-      </ThemeProvider>
-    </ErrorBoundary>
-  );
-}
-
-export default App;
+function PlannedPage({ title, description }: { title: string; description: string }) { return <section className="py-10"><span className="status status-planned">PLANNED</span><h1 className="mt-4 text-3xl font-semibold tracking-tight text-slate-950">{title}</h1><p className="mt-3 max-w-xl text-slate-500">{description}</p></section>; }
+export default function App() { return <ErrorBoundary><ThemeProvider defaultTheme="light"><TooltipProvider><Toaster /><Router /></TooltipProvider></ThemeProvider></ErrorBoundary>; }

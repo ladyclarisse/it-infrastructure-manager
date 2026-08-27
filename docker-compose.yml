@@ -1,0 +1,37 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-it_infrastructure}
+      POSTGRES_USER: ${POSTGRES_USER:-it_manager}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be provided}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks: [it-internal]
+
+  backend:
+    build:
+      context: .
+      dockerfile: docker/backend.Dockerfile
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: ${DATABASE_URL:?DATABASE_URL must be provided}
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET must be provided}
+      OAUTH_SERVER_URL: ${OAUTH_SERVER_URL:?OAUTH_SERVER_URL must be provided}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks: [it-internal]
+    ports: ["3000:3000"]
+
+networks:
+  it-internal:
+    driver: bridge
+
+volumes:
+  postgres_data:

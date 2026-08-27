@@ -315,6 +315,14 @@ class SDKServer {
       openId: user.openId,
       lastSignedIn: signedInAt,
     });
+    await db.createAuditLog({
+      actorUserId: user.id,
+      action: "AUTH_LOGIN_SUCCESS",
+      targetType: "user",
+      targetId: String(user.id),
+      ipAddress: req.ip,
+      userAgent: req.get("user-agent") || undefined,
+    });
 
     return user;
   }

@@ -1,0 +1,4 @@
+ALTER TABLE `audit_logs` ADD CONSTRAINT `audit_logs_actor_fk` FOREIGN KEY (`actorUserId`) REFERENCES `users`(`id`) ON DELETE set null ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE `role_permissions` ADD CONSTRAINT `role_permissions_role_fk` FOREIGN KEY (`roleId`) REFERENCES `roles`(`id`) ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE `role_permissions` ADD CONSTRAINT `role_permissions_permission_fk` FOREIGN KEY (`permissionId`) REFERENCES `permissions`(`id`) ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE `users` ADD CONSTRAINT `users_role_fk` FOREIGN KEY (`role`) REFERENCES `roles`(`slug`) ON DELETE restrict ON UPDATE no action;

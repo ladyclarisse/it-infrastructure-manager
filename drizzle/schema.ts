@@ -1,28 +1,16 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
+import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, index, uniqueIndex, foreignKey } from "drizzle-orm/mysql-core";
 
-/**
- * Core user table backing auth flow.
- * Extend this file with additional tables as your product grows.
- * Columns use camelCase to match both database fields and generated types.
- */
-export const users = mysqlTable("users", {
-  /**
-   * Surrogate primary key. Auto-incremented numeric value managed by the database.
-   * Use this for relations between tables.
-   */
-  id: int("id").autoincrement().primaryKey(),
-  /** Manus OAuth identifier (openId) returned from the OAuth callback. Unique per user. */
-  openId: varchar("openId", { length: 64 }).notNull().unique(),
-  name: text("name"),
-  email: varchar("email", { length: 320 }),
-  loginMethod: varchar("loginMethod", { length: 64 }),
-  role: mysqlEnum("role", ["user", "admin"]).default("user").notNull(),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
-  lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(),
-});
+export const userStatus = ["active", "disabled"] as const;
+export const roleSlugs = ["admin", "systems_network_admin", "technician", "it_manager", "user"] as const;
+
+export const roles = mysqlTable("roles", { id: int("id").autoincrement().primaryKey(), slug: varchar("slug", { length: 64 }).notNull(), name: varchar("name", { length: 128 }).notNull(), description: text("description"), createdAt: timestamp("createdAt").defaultNow().notNull() }, table => ({ slugUnique: uniqueIndex("roles_slug_unique").on(table.slug) }));
+export const permissions = mysqlTable("permissions", { id: int("id").autoincrement().primaryKey(), slug: varchar("slug", { length: 128 }).notNull(), name: varchar("name", { length: 128 }).notNull(), description: text("description") }, table => ({ slugUnique: uniqueIndex("permissions_slug_unique").on(table.slug) }));
+export const users = mysqlTable("users", { id: int("id").autoincrement().primaryKey(), openId: varchar("openId", { length: 128 }).notNull().unique(), name: varchar("name", { length: 255 }), email: varchar("email", { length: 320 }), loginMethod: varchar("loginMethod", { length: 64 }), role: varchar("role", { length: 64 }).default("user").notNull(), status: mysqlEnum("status", userStatus).default("active").notNull(), createdAt: timestamp("createdAt").defaultNow().notNull(), updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(), lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(), disabledAt: timestamp("disabledAt") }, table => ({ emailIdx: index("users_email_idx").on(table.email), roleIdx: index("users_role_idx").on(table.role), statusIdx: index("users_status_idx").on(table.status), roleFk: foreignKey({ columns: [table.role], foreignColumns: [roles.slug], name: "users_role_fk" }).onDelete("restrict") }));
+export const rolePermissions = mysqlTable("role_permissions", { roleId: int("roleId").notNull(), permissionId: int("permissionId").notNull() }, table => ({ compositeUnique: uniqueIndex("role_permissions_unique").on(table.roleId, table.permissionId), roleFk: foreignKey({ columns: [table.roleId], foreignColumns: [roles.id], name: "role_permissions_role_fk" }).onDelete("cascade"), permissionFk: foreignKey({ columns: [table.permissionId], foreignColumns: [permissions.id], name: "role_permissions_permission_fk" }).onDelete("cascade") }));
+export const auditLogs = mysqlTable("audit_logs", { id: int("id").autoincrement().primaryKey(), actorUserId: int("actorUserId"), action: varchar("action", { length: 128 }).notNull(), targetType: varchar("targetType", { length: 64 }), targetId: varchar("targetId", { length: 128 }), metadata: text("metadata"), ipAddress: varchar("ipAddress", { length: 64 }), userAgent: text("userAgent"), createdAt: timestamp("createdAt").defaultNow().notNull() }, table => ({ actorIdx: index("audit_logs_actor_idx").on(table.actorUserId), actionIdx: index("audit_logs_action_idx").on(table.action), actorFk: foreignKey({ columns: [table.actorUserId], foreignColumns: [users.id], name: "audit_logs_actor_fk" }).onDelete("set null") }));
 
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
-
-// TODO: Add your tables here
+export type Role = typeof roles.$inferSelect;
+export type Permission = typeof permissions.$inferSelect;
+export type AuditLog = typeof auditLogs.$inferSelect;

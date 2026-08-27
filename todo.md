@@ -1,0 +1,26 @@
+
+- [ ] Cloner et rattacher le dépôt GitHub `ladyclarisse/it-infrastructure-manager`, puis contribuer exclusivement sur la branche `main` et pousser la contribution après validation.
+- [x] Auditer l’état initial réel du dépôt et documenter les décisions d’architecture.
+- [x] Définir le modèle relationnel évolutif pour utilisateurs, rôles, permissions, audit et futures entités d’infrastructure.
+- [x] Préparer les migrations, contraintes, index, timestamps et stratégies de suppression.
+- [ ] Sécuriser les variables d’environnement et fournir `.env.example` sans secret.
+- [x] Structurer l’API, la logique métier, l’accès aux données, l’authentification, l’autorisation, les services et l’audit.
+- [x] Implémenter l’authentification avec le mécanisme d’identité réellement disponible, la session, la déconnexion et la protection des endpoints.
+- [x] Implémenter le RBAC serveur pour Administrateur, Administrateur systèmes/réseaux, Technicien, Responsable informatique et Utilisateur.
+- [x] Implémenter la consultation, la recherche, la modification de rôle et la désactivation des utilisateurs selon les permissions.
+- [x] Enregistrer les connexions et actions sensibles dans les journaux d’audit.
+- [x] Construire la console React professionnelle avec navigation, état d’authentification, écrans utilisateurs/rôles et états explicites.
+- [x] Documenter le contrat REST/OpenAPI prévu sans déclarer implémentés les endpoints non livrés.
+- [x] Préparer Dockerfiles, Docker Compose, PostgreSQL, healthchecks, volumes et réseau.
+- [x] Prévoir l’extension future des notifications d’alertes et du stockage de fichiers hors base de données sans les déclarer livrés.
+- [x] Ajouter les tests unitaires et d’intégration initiaux et une commande unique de validation.
+- [ ] Vérifier les migrations, la base, les tests, l’API, l’interface et les communications entre services.
+- [ ] Pousser la contribution validée sur la branche GitHub `main`.
+- [x] Ajouter les clés étrangères, contraintes relationnelles et stratégies de suppression dans le modèle RBAC.
+- [x] Extraire la logique métier des routeurs vers une couche `server/services/` dédiée.
+- [x] Journaliser explicitement la connexion réussie dans le flux OAuth/session avec les métadonnées disponibles.
+- [ ] Aligner le driver, Drizzle et la configuration sur PostgreSQL pour la cible Docker et ajouter le Dockerfile frontend requis.
+- [x] Ajouter un script `pnpm validate` et des tests initiaux couvrant les flux utilisateurs.
+- [x] Ajouter les clés étrangères et comportements `ON DELETE` directement dans le schéma Drizzle actif et sa migration.
+- [x] Poursuivre l’extraction des services d’authentification, audit et catalogue RBAC hors des routeurs.
+- [x] Ajouter les tests des mutations utilisateurs : changement de rôle, désactivation, réactivation et audit associé.

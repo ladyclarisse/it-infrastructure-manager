@@ -1,33 +1,15 @@
 import { useAuth } from "@/_core/hooks/useAuth";
-import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
-import { Streamdown } from 'streamdown';
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Activity, ArrowUpRight, Database, KeyRound, ShieldCheck, Users } from "lucide-react";
 
-/**
- * All content in this page are only for example, replace with your own feature implementation
- * When building pages, remember your instructions in Frontend Workflow, Frontend Best Practices, Design Guide and Common Pitfalls
- */
+const cards = [
+  { label: "Utilisateurs", value: "API réelle", icon: Users, tone: "bg-blue-50 text-blue-600" },
+  { label: "RBAC serveur", value: "IMPLEMENTED", icon: KeyRound, tone: "bg-violet-50 text-violet-600" },
+  { label: "Audit des actions", value: "IMPLEMENTED", icon: ShieldCheck, tone: "bg-emerald-50 text-emerald-600" },
+  { label: "Monitoring", value: "PLANNED", icon: Activity, tone: "bg-amber-50 text-amber-600" },
+];
 export default function Home() {
-  // The useAuth hook provides authentication state.
-  // To implement login/logout, call logout(), or start login from an event
-  // handler: onClick={() => startLogin()} (imported from "@/const"). Never call
-  // startLogin() during render (no href={startLogin()}) — it mints a one-time
-  // nonce cookie and must run only at the moment of navigation.
-  let { user, loading, error, isAuthenticated, logout } = useAuth();
-
-  // If theme is switchable in App.tsx, we can implement theme toggling like this:
-  // const { theme, toggleTheme } = useTheme();
-
-  return (
-    <div className="min-h-screen flex flex-col">
-      <main>
-        {/* Example: lucide-react for icons */}
-        <Loader2 className="animate-spin" />
-        Example Page
-        {/* Example: Streamdown for markdown rendering */}
-        <Streamdown>Any **markdown** content</Streamdown>
-        <Button variant="default">Example Button</Button>
-      </main>
-    </div>
-  );
+  const { user } = useAuth();
+  return <div className="space-y-8"><section className="relative overflow-hidden rounded-[28px] bg-slate-950 px-7 py-9 text-white md:px-10"><div className="absolute right-0 top-0 h-full w-1/2 bg-[radial-gradient(circle_at_70%_30%,rgba(59,130,246,.35),transparent_55%)]" /><div className="relative max-w-2xl"><p className="eyebrow text-blue-300">CONTROL PLANE / ÉTAPE 1</p><h1 className="mt-4 text-3xl font-semibold tracking-[-0.03em] md:text-5xl">Bonjour, {user?.name?.split(" ")[0] || "opérateur"}.</h1><p className="mt-4 max-w-xl text-sm leading-7 text-slate-300 md:text-base">Une base fiable pour administrer les identités aujourd’hui et connecter l’infrastructure demain. Chaque capacité expose son état réel, sans métrique simulée présentée comme réelle.</p><div className="mt-7 flex flex-wrap gap-3"><Badge className="border border-emerald-400/30 bg-emerald-400/10 text-emerald-300">IMPLEMENTED · Auth + RBAC</Badge><Badge className="border border-slate-600 bg-slate-800 text-slate-300">Identité Manus OAuth</Badge></div></div></section><section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">{cards.map(card => <Card key={card.label} className="border-0 shadow-sm"><CardContent className="p-5"><div className="flex items-start justify-between"><div className={`grid h-10 w-10 place-items-center rounded-xl ${card.tone}`}><card.icon className="h-5 w-5" /></div><ArrowUpRight className="h-4 w-4 text-slate-300" /></div><p className="mt-7 text-sm text-slate-500">{card.label}</p><p className="mt-1 text-lg font-semibold tracking-tight text-slate-900">{card.value}</p></CardContent></Card>)}</section><section className="grid gap-5 lg:grid-cols-[1.4fr_.8fr]"><Card className="border-0 shadow-sm"><CardHeader><CardTitle className="text-base">Fondations opérationnelles</CardTitle></CardHeader><CardContent className="space-y-5">{[{ label: "Session et identité", status: "TESTED", detail: "OAuth, cookie signé, déconnexion" }, { label: "Contrôle d’accès", status: "IMPLEMENTED", detail: "Vérification côté API par rôle" }, { label: "Persistance et audit", status: "IMPLEMENTED", detail: "Utilisateurs, rôles, permissions, journaux" }].map(item => <div key={item.label} className="flex items-center gap-4"><div className="h-2 w-2 rounded-full bg-emerald-500" /><div className="min-w-0 flex-1"><p className="text-sm font-medium text-slate-800">{item.label}</p><p className="text-xs text-slate-400">{item.detail}</p></div><span className={`status ${item.status === "TESTED" ? "status-tested" : "status-implemented"}`}>{item.status}</span></div>)}</CardContent></Card><Card className="border-0 bg-white shadow-sm"><CardHeader><CardTitle className="flex items-center gap-2 text-base"><Database className="h-4 w-4 text-blue-600" />Périmètre suivant</CardTitle></CardHeader><CardContent><p className="text-sm leading-6 text-slate-500">Les modules d’infrastructure restent explicitement planifiés tant qu’aucune collecte réelle n’est branchée.</p><div className="mt-5 rounded-xl bg-slate-50 p-4 text-xs leading-5 text-slate-500">Les pièces jointes et exports seront stockés hors base, via le stockage objet, lorsque le module sera activé.</div></CardContent></Card></section></div>;
 }

@@ -1,5 +1,27 @@
 {
   "version": "7",
   "dialect": "mysql",
-  "entries": []
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1787822002198,
+      "tag": "0000_material_silver_surfer",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1787822747874,
+      "tag": "0001_lumpy_wendell_vaughn",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1787823387101,
+      "tag": "0002_oval_silver_surfer",
+      "breakpoints": true
+    }
+  ]
 }
