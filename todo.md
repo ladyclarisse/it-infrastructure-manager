@@ -226,3 +226,13 @@
 - [x] Préparer exclusivement le protocole de validation Fedora demandé, sans ajouter de fonctionnalité.
 - [x] Exécuter `pnpm validate`, vérifier le statut et l’historique Git, puis confirmer la référence distante.
 - [x] Créer le checkpoint final du code gelé et fournir le hash sans déclarer de validation runtime Fedora.
+
+# Étape 6 — Refonte UI/UX premium
+
+- [x] Vérifier les ressources UI UX Pro Max et Impeccable disponibles et documenter leur usage réel.
+- [x] Capturer et auditer l’interface initiale sur desktop, laptop, tablette et mobile, avec score initial et audit anti-AI-slop.
+- [x] Définir un design system cohérent : typographie, couleurs, spacing, rayons, élévation et composants.
+- [x] Implémenter la refonte globale sans modifier les flux fonctionnels, routes, API, auth ou données.
+- [x] Vérifier responsive, accessibilité, navigation clavier, focus, états loading/error/empty et interactions.
+- [x] Réaliser les cycles d’audit visuel et corriger les défauts restants sans inventer de scores d’outils non exécutés.
+- [x] Exécuter `pnpm validate`, documenter les scores et limites, puis créer le checkpoint final si les critères sont satisfaits.
