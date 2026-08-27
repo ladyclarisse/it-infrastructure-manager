@@ -243,3 +243,23 @@
 - [x] Versionner les modifications non poussées, si nécessaire, sans écraser l’historique.
 - [x] Pousser toutes les modifications sur `main` et vérifier le hash distant.
 - [x] Confirmer le contenu synchronisé et livrer le statut final.
+
+# Étape 7 — Audit UI/UX réel et routes authentifiées
+
+- [ ] Vérifier HEAD, branche, statut, remotes et logs récents avant modification.
+- [ ] Auditer l’architecture frontend, les routes auth, OAuth, layouts, états et composants métier.
+- [ ] Auditer explicitement les symptômes AI-slop et documenter les corrections pertinentes.
+- [ ] Retenter l’utilisation réelle d’UI UX Pro Max et d’Impeccable ; marquer NON ÉVALUÉ sans fabriquer de score si indisponible.
+- [ ] Auditer les routes authentifiées avec la session disponible ou documenter précisément la limite OAuth.
+- [ ] Appliquer uniquement les corrections UI/UX nécessaires, sans modifier l’infrastructure.
+- [ ] Vérifier responsive, accessibilité, états loading/empty/error, interactions et non-régression.
+- [ ] Exécuter `pnpm validate`, contrôler diff/fichiers Git, committer et pousser uniquement les changements Étape 7 sur `main`.
+- [ ] Fournir le rapport structuré avec hash local/distant et statuts réellement observés.
+
+# Bug — boucle de connexion OAuth
+
+- [x] Reproduire et diagnostiquer le retour systématique vers la page de connexion.
+- [x] Inspecter logs serveur/navigateur, callback OAuth, cookies et configuration de redirection.
+- [x] Corriger la cause ciblée sans exposer de secrets ni modifier l’infrastructure métier.
+- [x] Ajouter un test de régression du flux de session et exécuter `pnpm validate`.
+- [x] Documenter le résultat et créer un checkpoint si le correctif est validé.
