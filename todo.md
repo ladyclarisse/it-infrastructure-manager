@@ -46,7 +46,7 @@
 - [x] Construire les écrans frontend d’inventaire, détails, filtres et relations en réutilisant le shell existant.
 - [x] Ajouter les tests unitaires et d’intégration disponibles sans simuler monitoring ou PostgreSQL non disponible.
 - [x] Documenter le modèle, l’API, les états `PLANNED`, `DESIGNED`, `IMPLEMENTED`, `TESTED` et `BLOCKED`.
-- [ ] Valider, versionner et pousser l’Étape 2 sur la branche `main`.
+- [x] Valider, versionner et pousser l’Étape 2 sur la branche `main`.
 - [x] Ajouter des états d’erreur UI explicites pour les requêtes et mutations d’inventaire.
 - [x] Ajouter une gestion UI explicite de création de relations ou qualifier la capacité comme DESIGNED sans la revendiquer comme interface livrée.
 - [x] Ajouter des tests d’intégration du routeur inventaire pour permissions, filtres, création, détail et suppression sans prétendre à PostgreSQL.
