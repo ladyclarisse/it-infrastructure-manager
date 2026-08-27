@@ -236,3 +236,10 @@
 - [x] Vérifier responsive, accessibilité, navigation clavier, focus, états loading/error/empty et interactions.
 - [x] Réaliser les cycles d’audit visuel et corriger les défauts restants sans inventer de scores d’outils non exécutés.
 - [x] Exécuter `pnpm validate`, documenter les scores et limites, puis créer le checkpoint final si les critères sont satisfaits.
+
+# Synchronisation GitHub — modifications UI/UX récentes
+
+- [x] Auditer le statut local, les commits récents et la référence distante `main`.
+- [ ] Versionner les modifications non poussées, si nécessaire, sans écraser l’historique.
+- [ ] Pousser toutes les modifications sur `main` et vérifier le hash distant.
+- [ ] Confirmer le contenu synchronisé et livrer le statut final.
