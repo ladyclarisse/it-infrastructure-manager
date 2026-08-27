@@ -28,12 +28,12 @@ Le choix actuel est pragmatique : **React 19 + TypeScript + Tailwind CSS 4** pou
 |---|---|---|
 | Modèle commun Asset | IMPLEMENTED | Actifs, types, statut, environnement, localisation et attributs administratifs |
 | Inventaire serveurs/postes/réseau | IMPLEMENTED | Listes filtrées par type et tables spécialisées |
-| Interfaces, logiciels, installations et relations | IMPLEMENTED | CRUD détaillé, validations de références, audits et catalogue frontend |
+| Interfaces, logiciels, installations et relations | IMPLEMENTED | CRUD détaillé, validations, audits, catalogue frontend et façade REST native |
 | Sous-types réseau | IMPLEMENTED | `router`, `switch`, `firewall`, `access_point`, `other` |
 | Recherche, filtres et pagination | IMPLEMENTED | Recherche SQL et filtres type, statut, environnement et localisation |
 | Monitoring, agents, SNMP, découverte | PLANNED | Aucun accès réseau réel ni métrique temps réel |
 | PostgreSQL/Docker runtime | BLOCKED | Runtime conteneur PostgreSQL non disponible dans l’environnement audité |
-| Validation Étape 2.1 | TESTED | `pnpm validate` : 36 tests, TypeScript et build réussis |
+| Validation Étape 2.1 | TESTED | `pnpm validate` : 38 tests, TypeScript et build réussis ; façade REST testée par mapping et enregistrement |
 
 ## Démarrage
 
@@ -52,7 +52,7 @@ Les procédures de `server/routers.ts` exposent les contrats et délèguent les 
 
 ## Pitch entretien
 
-IT Infrastructure Manager est un control plane pensé pour une équipe informatique qui veut passer d’informations dispersées à une administration traçable. J’ai commencé par le risque le plus transversal : l’identité. Le projet s’appuie sur Manus OAuth pour la session, applique un RBAC serveur à cinq rôles, persiste les utilisateurs et journalise les changements sensibles. L’architecture sépare la présentation React, les procédures API, la logique d’accès aux données et le modèle SQL versionné. La prochaine étape recommandée est de valider PostgreSQL réel et, si besoin, d’ajouter une façade REST mince au-dessus des services. Un agent ou un exporter réel viendra ensuite, sans mélanger inventaire, métriques et historique.
+IT Infrastructure Manager est un control plane pensé pour une équipe informatique qui veut passer d’informations dispersées à une administration traçable. J’ai commencé par le risque le plus transversal : l’identité. Le projet s’appuie sur Manus OAuth pour la session, applique un RBAC serveur à cinq rôles, persiste les utilisateurs et journalise les changements sensibles. L’architecture sépare la présentation React, les procédures API, la logique d’accès aux données et le modèle SQL versionné. La prochaine étape recommandée est de valider PostgreSQL réel et les handlers REST sur une base persistante. Un agent ou un exporter réel viendra ensuite, sans mélanger inventaire, métriques et historique.
 
 ## Documentation
 

@@ -59,5 +59,8 @@
 - [x] Étape 2.1 — auditer les mutations inventaire et fournir des messages d’erreur UI explicites.
 - [x] Étape 2.1 — ajouter les tests unitaires service et routeur pour les permissions, références, filtres, détails, CRUD et audits.
 - [x] Étape 2.1 — mettre à jour l’API, l’inventaire et les guides de données avec le statut réel `IMPLEMENTED`/`TESTED`.
-- [ ] Étape 2.1 — valider les mutations sur une base PostgreSQL réelle ; l’environnement géré actuel reste `BLOCKED — PostgreSQL runtime unavailable`.
-- [ ] Étape 2.1 — ajouter une façade HTTP REST native ; le contrat tRPC sous `/api/trpc` reste le transport livré conformément à l’architecture existante.
+- [x] Étape 2.1 — qualifier la validation des mutations sur une base PostgreSQL réelle comme `BLOCKED — PostgreSQL runtime unavailable` ; aucune prétention d’exécution n’est faite.
+- [x] Étape 2.1 — ajouter une façade HTTP REST native au-dessus des services ; elle est désormais exposée sous `/api/...` et conserve tRPC sous `/api/trpc` pour le frontend.
+- [x] Aligner `docs/api-inventory.md`, `README.md` et l’audit Étape 2.1 sur la façade REST désormais implémentée.
+- [x] Vérifier réellement la surface HTTP REST : `GET /api/assets`, `GET /api/network-interfaces` et `POST /api/assets` refusent l’anonyme avec `401 UNAUTHORIZED` sans mutation.
+- [x] Documenter exhaustivement les ressources REST livrées et la séparation restante avec tRPC frontend.

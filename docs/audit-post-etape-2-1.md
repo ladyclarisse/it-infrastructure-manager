@@ -7,7 +7,7 @@
 
 ## 1. Objet et périmètre
 
-Cette itération complète le module d’inventaire sans introduire de monitoring, d’agent, de découverte réseau, de collecte SNMP, de métriques temps réel ni de façade REST native. Le transport réellement exposé reste tRPC sous `/api/trpc`, conformément à l’architecture existante du dépôt. La compatibilité REST native demeure `PLANNED` et n’est pas présentée comme livrée.
+Cette itération complète le module d’inventaire sans introduire de monitoring, d’agent, de découverte réseau, de collecte SNMP ni de métriques temps réel. Le frontend utilise tRPC sous `/api/trpc`, conformément à l’architecture existante du dépôt. Une façade REST native est également livrée sous `/api/...`, en complément de tRPC, au-dessus des mêmes services métier.
 
 Le périmètre livré couvre les opérations de lecture et d’écriture des interfaces réseau, logiciels, installations, localisations, relations et sous-types `router`, `switch`, `firewall`, `access_point` et `other`. Les mutations sont reliées au service métier et au contrôle RBAC serveur.
 
@@ -18,10 +18,10 @@ Le périmètre livré couvre les opérations de lecture et d’écriture des int
 | Modèle de données | `drizzle/schema.ts`, migration existante | Les tables d’inventaire et leurs contraintes étaient déjà en place ; aucun changement de schéma requis dans cette itération |
 | Persistance | `server/db.ts` | Helpers CRUD dédiés pour interfaces, logiciels, installations, localisations, relations et sous-types réseau |
 | Métier | `server/services/inventory.ts` | Validation des références, IP/MAC/hostname, préfixe, VLAN, types de relations et audit des mutations |
-| Contrat API | `server/routers.ts` | Procédures list/get/create/update/remove avec RBAC d’écriture |
+| Contrat API | `server/routers.ts`, `server/rest/inventory.ts` | Procédures tRPC et façade REST list/get/create/update/remove avec RBAC d’écriture |
 | Frontend | `client/src/pages/Infrastructure.tsx`, `InfrastructureCatalog.tsx` | Inventaire, détail, catalogue CRUD, filtres et états d’erreur |
 | Navigation | `client/src/App.tsx`, `DashboardLayout.tsx` | Route `/infrastructure/catalogues` et entrée persistante `Catalogues` |
-| Tests | 6 suites Vitest | 36 tests réussis |
+| Tests | 7 suites Vitest | 38 tests réussis |
 | Build | `pnpm validate` | TypeScript, tests et build production réussis |
 | Rendu | captures desktop 1280×720 et mobile 390×844 | Inventaire et catalogue visibles, responsive et cohérents avec le shell existant |
 
@@ -41,9 +41,9 @@ Le périmètre livré couvre les opérations de lecture et d’écriture des int
 | Audit des mutations | `IMPLEMENTED` | Actions de création, modification et suppression écrites côté serveur sans secret |
 | Tests unitaires métier | `TESTED` | 11 tests dans `server/inventory.service.test.ts` |
 | Tests de contrat routeur | `TESTED` | 9 tests dans `server/infrastructure.router.test.ts` |
-| Validation globale | `TESTED` | 36 tests, contrôle TypeScript et build production réussis |
+| Validation globale | `TESTED` | 38 tests, contrôle TypeScript et build production réussis |
 | Persistance PostgreSQL réelle | `BLOCKED` | Aucun runtime PostgreSQL conteneurisé disponible dans l’environnement de validation actuel |
-| Façade REST native | `PLANNED` | Non implémentée ; le contrat livré est tRPC sous `/api/trpc` |
+| Façade REST native | `IMPLEMENTED` | Ressources `/api/assets`, `/api/network-devices`, `/api/network-interfaces`, `/api/software`, `/api/software-installations`, `/api/locations` et `/api/relationships` |
 | Monitoring et collecte | `PLANNED` | Aucun exporter, agent, SNMP, ping, métrique ou alerte introduit |
 
 ## 4. API livrée et autorisations
@@ -68,7 +68,9 @@ Les captures desktop et mobile confirment que la navigation persistante, les car
 
 ## 7. Validation et limites
 
-La commande unique `pnpm validate` a réussi pendant cet audit. Elle exécute le contrôle TypeScript, les six suites Vitest et le build production. Le résultat observé est **36 tests réussis**, sans erreur TypeScript ni échec de build.
+La commande unique `pnpm validate` a réussi pendant cet audit. Elle exécute le contrôle TypeScript, les sept suites Vitest et le build production. Le résultat observé est **38 tests réussis**, sans erreur TypeScript ni échec de build.
+
+La façade REST a également été vérifiée en HTTP réel sur le serveur de développement : `GET /api/assets`, `GET /api/network-interfaces` et `POST /api/assets` répondent `401 UNAUTHORIZED` sans session, sans muter la base. Cette preuve confirme l’exposition des routes et leur protection ; elle ne remplace pas un test authentifié de succès.
 
 Cette preuve ne remplace pas une validation d’intégration sur PostgreSQL réel. Le dépôt utilise encore l’adaptateur SQL fourni par l’environnement géré pour son exécution active ; le Dockerfile et la cible PostgreSQL sont documentés mais n’ont pas pu être démarrés dans le sandbox faute de runtime de conteneur. Cette limite reste `BLOCKED`, et aucune donnée fictive n’a été injectée pour la masquer.
 
@@ -77,7 +79,7 @@ Cette preuve ne remplace pas une validation d’intégration sur PostgreSQL rée
 | Gravité | Risque | Impact | Recommandation |
 |---|---|---|---|
 | Haute | Persistance PostgreSQL non exécutée dans cette itération | Les contraintes et types PostgreSQL ne sont pas validés en runtime réel | Exécuter Compose dans CI ou un environnement conteneurisé puis ajouter des tests d’intégration persistants |
-| Moyenne | Façade REST native absente | Des consommateurs externes ne disposent pas encore de `/api/assets` et ressources analogues | Ajouter une couche REST mince au-dessus des services, sans dupliquer les règles métier |
+| Moyenne | Tests REST authentifiés de succès absents | Les preuves HTTP actuelles confirment les routes et le refus anonyme, mais pas une mutation réussie avec session | Ajouter des tests d’intégration authentifiés dans un environnement de test maîtrisé, sans dupliquer les règles métier |
 | Moyenne | Gestion de formulaires encore générique | Les champs spécialisés sont fonctionnels mais peu guidés par domaine | Ajouter des formulaires par ressource avec labels, formats et validations contextualisées |
 | Faible | Erreurs de contraintes SQL non harmonisées | Les doublons peuvent remonter comme erreurs internes selon le driver | Mapper les erreurs de contrainte vers `CONFLICT` après validation PostgreSQL réelle |
 
@@ -85,4 +87,4 @@ Cette preuve ne remplace pas une validation d’intégration sur PostgreSQL rée
 
 L’Étape 2.1 peut être considérée comme **validée fonctionnellement et testée au niveau service/routeur/frontend**. Il est raisonnable de poursuivre vers la prochaine étape uniquement si la réserve PostgreSQL est acceptée explicitement et planifiée comme un contrôle d’environnement, et non comme une fonctionnalité supposée opérationnelle.
 
-La suite recommandée est de stabiliser l’intégration persistante PostgreSQL, puis d’ajouter la façade REST native si des consommateurs externes l’exigent. Le monitoring ne doit être commencé qu’après cette stabilisation : il devra être introduit comme un module distinct, avec agents/exporters, collecte, rétention et alertes, sans réutiliser abusivement les statuts administratifs de l’inventaire.
+La suite recommandée est de stabiliser l’intégration persistante PostgreSQL et d’ajouter des tests REST authentifiés de succès. La façade REST native est déjà livrée ; elle doit rester une couche mince au-dessus des services. Le monitoring ne doit être commencé qu’après cette stabilisation : il devra être introduit comme un module distinct, avec agents/exporters, collecte, rétention et alertes, sans réutiliser abusivement les statuts administratifs de l’inventaire.
