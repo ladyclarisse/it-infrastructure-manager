@@ -12,12 +12,12 @@ Les valeurs d’inventaire proviennent de l’API tRPC et de la base active. Auc
 |---|---|---|
 | Modèle commun Asset | IMPLEMENTED | Table `assets`, type, identité, réseau, système, ressources administratives et localisation |
 | Serveurs, postes et réseau | IMPLEMENTED | Types d’actifs, listes filtrées et tables spécialisées |
-| Interfaces réseau | DESIGNED | Table relationnelle créée et affichée dans le détail ; mutation dédiée future |
-| Logiciels et installations | DESIGNED | Tables relationnelles créées ; écrans de gestion détaillée futurs |
-| Localisations | IMPLEMENTED | Table et lecture API |
-| Relations entre actifs | IMPLEMENTED | Table, lecture, création contrôlée et affichage du détail |
+| Interfaces réseau | IMPLEMENTED | CRUD complet, rattachement Asset, validation MAC/IP/préfixe/VLAN et audit |
+| Logiciels et installations | IMPLEMENTED | CRUD logiciels, installations Asset ↔ Software, versions, dates, statuts et audit |
+| Localisations | IMPLEMENTED | CRUD, validation des entrées et audit des mutations |
+| Relations entre actifs | IMPLEMENTED | CRUD, validation des deux actifs, types contrôlés, prévention de l’auto-relation et audit |
 | Recherche et filtres | IMPLEMENTED | Recherche serveur sur hostname, IP, tag, série, constructeur et modèle ; filtres type/statut/environnement/localisation |
-| Validation automatisée | TESTED | 24 tests Vitest passés, dont 4 tests service inventaire, 4 tests routeur, et `pnpm check` réussi |
+| Validation automatisée | TESTED | 36 tests Vitest passés, dont 11 tests service inventaire, 9 tests routeur, et `pnpm check` réussi |
 | Pagination | IMPLEMENTED | Page et pageSize bornés dans l’API |
 | Monitoring réel | PLANNED | Aucune CPU/RAM/disponibilité temps réel n’est calculée ou affichée |
 | Agents, SNMP, découverte | PLANNED | Aucun accès réseau sortant ni collecte automatique |

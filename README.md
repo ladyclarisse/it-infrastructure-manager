@@ -4,7 +4,7 @@
 
 ## Project presentation
 
-Le projet répond au besoin de disposer d’un control plane professionnel pour les équipes informatiques : identité, droits, traçabilité et inventaire administratif. L’Étape 2 ajoute le registre d’actifs et ses relations sans activer le monitoring, les agents, le SNMP ou la découverte automatique.
+Le projet répond au besoin de disposer d’un control plane professionnel pour les équipes informatiques : identité, droits, traçabilité et inventaire administratif. L’Étape 2 ajoute le registre d’actifs et ses relations sans activer le monitoring, les agents, le SNMP ou la découverte automatique. L’Étape 2.1 complète les CRUD des interfaces, logiciels, installations, localisations, relations et sous-types réseau via le transport tRPC existant.
 
 Le choix actuel est pragmatique : **React 19 + TypeScript + Tailwind CSS 4** pour une console dense et accessible, **Express + tRPC 11** pour des contrats serveur typés, **Drizzle ORM** pour le modèle versionné, et la base SQL gérée par le runtime. Une cible PostgreSQL/Docker est documentée dans `docs/deployment.md` ; elle sera activée avec une migration dédiée lorsque l’exécution sera déplacée vers un environnement Docker maîtrisé.
 
@@ -28,10 +28,12 @@ Le choix actuel est pragmatique : **React 19 + TypeScript + Tailwind CSS 4** pou
 |---|---|---|
 | Modèle commun Asset | IMPLEMENTED | Actifs, types, statut, environnement, localisation et attributs administratifs |
 | Inventaire serveurs/postes/réseau | IMPLEMENTED | Listes filtrées par type et tables spécialisées |
-| Interfaces, logiciels et relations | DESIGNED | Modèle relationnel créé ; lecture des interfaces/relations livrée, gestion détaillée progressive |
+| Interfaces, logiciels, installations et relations | IMPLEMENTED | CRUD détaillé, validations de références, audits et catalogue frontend |
+| Sous-types réseau | IMPLEMENTED | `router`, `switch`, `firewall`, `access_point`, `other` |
 | Recherche, filtres et pagination | IMPLEMENTED | Recherche SQL et filtres type, statut, environnement et localisation |
 | Monitoring, agents, SNMP, découverte | PLANNED | Aucun accès réseau réel ni métrique temps réel |
 | PostgreSQL/Docker runtime | BLOCKED | Runtime conteneur PostgreSQL non disponible dans l’environnement audité |
+| Validation Étape 2.1 | TESTED | `pnpm validate` : 36 tests, TypeScript et build réussis |
 
 ## Démarrage
 
@@ -50,7 +52,7 @@ Les procédures de `server/routers.ts` exposent les contrats et délèguent les 
 
 ## Pitch entretien
 
-IT Infrastructure Manager est un control plane pensé pour une équipe informatique qui veut passer d’informations dispersées à une administration traçable. J’ai commencé par le risque le plus transversal : l’identité. Le projet s’appuie sur Manus OAuth pour la session, applique un RBAC serveur à cinq rôles, persiste les utilisateurs et journalise les changements sensibles. L’architecture sépare la présentation React, les procédures API, la logique d’accès aux données et le modèle SQL versionné. La prochaine étape consistera à connecter un agent ou un exporter réel, sans mélanger inventaire, métriques et historique.
+IT Infrastructure Manager est un control plane pensé pour une équipe informatique qui veut passer d’informations dispersées à une administration traçable. J’ai commencé par le risque le plus transversal : l’identité. Le projet s’appuie sur Manus OAuth pour la session, applique un RBAC serveur à cinq rôles, persiste les utilisateurs et journalise les changements sensibles. L’architecture sépare la présentation React, les procédures API, la logique d’accès aux données et le modèle SQL versionné. La prochaine étape recommandée est de valider PostgreSQL réel et, si besoin, d’ajouter une façade REST mince au-dessus des services. Un agent ou un exporter réel viendra ensuite, sans mélanger inventaire, métriques et historique.
 
 ## Documentation
 
@@ -65,6 +67,7 @@ IT Infrastructure Manager est un control plane pensé pour une équipe informati
 - [Feuille de route](docs/update.md)
 - [Dépannage](docs/troubleshooting.md)
 - [Inventaire](docs/inventory.md)
+- [Audit post-Étape 2.1](docs/audit-post-etape-2-1.md)
 - [Modèle de données](docs/data-model.md)
 - [API inventaire](docs/api-inventory.md)
 - [Sécurité RBAC](docs/security-rbac.md)

@@ -53,3 +53,11 @@
 - [x] Documenter explicitement l’état exact `TESTED` pour le périmètre inventaire avec ses preuves associées.
 - [x] Ajouter un état d’erreur UI explicite pour l’échec de suppression d’un actif.
 - [x] Étendre les tests du routeur inventaire aux filtres, détail, création autorisée et suppression autorisée/refusée.
+- [x] Étape 2.1 — ajouter les CRUD dédiés des interfaces réseau, logiciels, installations et localisations via le transport tRPC existant.
+- [x] Étape 2.1 — distinguer et administrer les sous-types réseau `router`, `switch`, `firewall`, `access_point` et `other`.
+- [x] Étape 2.1 — valider côté service les adresses IP/MAC, hostnames, préfixes, VLAN, ressources parentes et types de relations.
+- [x] Étape 2.1 — auditer les mutations inventaire et fournir des messages d’erreur UI explicites.
+- [x] Étape 2.1 — ajouter les tests unitaires service et routeur pour les permissions, références, filtres, détails, CRUD et audits.
+- [x] Étape 2.1 — mettre à jour l’API, l’inventaire et les guides de données avec le statut réel `IMPLEMENTED`/`TESTED`.
+- [ ] Étape 2.1 — valider les mutations sur une base PostgreSQL réelle ; l’environnement géré actuel reste `BLOCKED — PostgreSQL runtime unavailable`.
+- [ ] Étape 2.1 — ajouter une façade HTTP REST native ; le contrat tRPC sous `/api/trpc` reste le transport livré conformément à l’architecture existante.
