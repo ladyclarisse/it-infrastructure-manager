@@ -263,3 +263,66 @@
 - [x] Corriger la cause ciblée sans exposer de secrets ni modifier l’infrastructure métier.
 - [x] Ajouter un test de régression du flux de session et exécuter `pnpm validate`.
 - [x] Documenter le résultat et créer un checkpoint si le correctif est validé.
+
+# Bug OAuth — seconde investigation
+
+- [x] Reproduire une tentative de connexion et capturer URL finale, statuts réseau et logs expurgés.
+- [x] Vérifier l’émission/réception du cookie d’état et du cookie de session, sans collecter leur valeur.
+- [x] Vérifier le callback OAuth, `auth.me`, les redirections et l’alignement de l’origine/redirect URI.
+- [x] Isoler la cause réelle avant toute modification.
+- [x] Appliquer un correctif ciblé et ajouter les tests de régression nécessaires.
+- [x] Exécuter `pnpm validate`, documenter le résultat et créer un checkpoint.
+
+# Bug OAuth — investigation transport de session
+
+- [x] Capturer le statut du callback OAuth et la redirection finale après une nouvelle tentative.
+- [x] Vérifier la présence du cookie d’état et du cookie de session sans exposer leurs valeurs.
+- [x] Vérifier la réponse `auth.me` et les en-têtes d’authentification après callback.
+- [x] Isoler la perte de session entre callback, cookie navigateur et requête tRPC.
+- [x] Corriger uniquement la cause confirmée et ajouter une régression.
+- [x] Exécuter `pnpm validate`, documenter et créer un checkpoint.
+
+# PostgreSQL local — environnement Fedora utilisateur
+
+- [ ] Confirmer le chemin d’accès à la machine Fedora et au dépôt avant de toucher à PostgreSQL.
+- [ ] Vérifier que PostgreSQL local écoute sur l’interface attendue et que la base cible est dédiée au projet.
+- [ ] Configurer localement `DATABASE_URL` sans exposer son secret dans Git ou dans le chat.
+- [ ] Exécuter les migrations PostgreSQL depuis le checkout Fedora avec les commandes prévues par le projet.
+- [ ] Vérifier la connexion applicative et relancer le diagnostic OAuth après migrations.
+
+# PostgreSQL sandbox — validation réelle de test
+
+- [x] Installer PostgreSQL dans le sandbox et démarrer une instance locale dédiée à cette session.
+- [x] Créer un rôle et une base de test isolés sans modifier les configurations Fedora ou Git.
+- [x] Appliquer les migrations `drizzle-pg` avec une `DATABASE_URL` locale temporaire.
+- [x] Vérifier le schéma PostgreSQL, la connexion Drizzle et une persistance de test non destructive.
+- [x] Relancer le serveur avec la base locale puis qualifier `auth.me` et la boucle OAuth.
+- [x] Exécuter `pnpm validate`, documenter les preuves sandbox et créer un checkpoint.
+
+# OAuth sandbox — inspection navigateur directe
+
+- [x] Inspecter la page de test PostgreSQL locale dans le navigateur interne après tentative OAuth.
+- [x] Vérifier l’URL finale, la présence des cookies sans les afficher et la réponse `auth.me`.
+- [x] Corréler les constats navigateur avec les logs du serveur de test.
+- [x] Corriger seulement la cause restante démontrée et revalider le parcours.
+
+# Bug OAuth — callback serveur échoué
+
+- [x] Capturer les logs expurgés du callback qui retourne `OAuth callback failed`.
+- [x] Identifier la dépendance OAuth ou PostgreSQL qui échoue après réception du callback.
+- [x] Corriger la cause démontrée et ajouter un test de régression ciblé.
+- [x] Revalider le callback, la session et `auth.me` avec PostgreSQL local.
+- [x] Exécuter `pnpm validate`, documenter et créer un checkpoint.
+
+# Bug bootstrap développement — import Vite manquant
+
+- [x] Corriger l’import `setupVite` manquant dans le bootstrap de développement signalé par les logs.
+- [x] Vérifier le démarrage du serveur de prévisualisation après la correction, sans modifier l’entrypoint production.
+
+# Bug migration PostgreSQL — clé étrangère users.role
+
+- [x] Diagnostiquer la contrainte PostgreSQL rejetée entre `users.role` et `roles.slug`.
+- [x] Corriger le schéma/migrations pour que la clé référencée soit unique sans affaiblir les contraintes.
+- [x] Réinitialiser uniquement la base sandbox de test et réappliquer toutes les migrations.
+- [x] Ajouter un test de régression sur l’invariant PostgreSQL puis exécuter `pnpm validate`.
+- [x] Initialiser le catalogue de rôles de référence sur une base fraîche avant le premier upsert OAuth.

@@ -8,6 +8,13 @@
       "when": 1787842450082,
       "tag": "0000_perfect_tyrannus",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1787867950000,
+      "tag": "0001_seed_role_catalog",
+      "breakpoints": true
     }
   ]
 }

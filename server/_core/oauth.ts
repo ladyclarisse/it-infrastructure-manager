@@ -10,6 +10,22 @@ function getQueryParam(req: Request, key: string): string | undefined {
   return typeof value === "string" ? value : undefined;
 }
 
+export function summarizeOAuthCallbackError(error: unknown) {
+  if (error instanceof Error) {
+    const candidate = error as Error & { code?: unknown; status?: unknown; response?: { status?: unknown } };
+    return {
+      name: candidate.name || "Error",
+      code: typeof candidate.code === "string" ? candidate.code : undefined,
+      status: typeof candidate.response?.status === "number"
+        ? candidate.response.status
+        : typeof candidate.status === "number"
+          ? candidate.status
+          : undefined,
+    };
+  }
+  return { name: "UnknownOAuthCallbackError" };
+}
+
 export function registerOAuthRoutes(app: Express) {
   app.get("/api/oauth/callback", async (req: Request, res: Response) => {
     const code = getQueryParam(req, "code");
@@ -58,7 +74,7 @@ export function registerOAuthRoutes(app: Express) {
 
       res.redirect(302, "/");
     } catch (error) {
-      console.error("[OAuth] Callback failed", error);
+      console.error("[OAuth] Callback failed", summarizeOAuthCallbackError(error));
       res.status(500).json({ error: "OAuth callback failed" });
     }
   });

@@ -184,7 +184,8 @@ CREATE TABLE "roles" (
 	"slug" varchar(64) NOT NULL,
 	"name" varchar(128) NOT NULL,
 	"description" text,
-	"createdAt" timestamp DEFAULT now() NOT NULL
+	"createdAt" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "roles_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
 CREATE TABLE "servers" (
@@ -300,7 +301,6 @@ CREATE INDEX "network_interfaces_asset_idx" ON "network_interfaces" USING btree 
 CREATE INDEX "network_interfaces_ip_idx" ON "network_interfaces" USING btree ("ipAddress");--> statement-breakpoint
 CREATE UNIQUE INDEX "permissions_slug_unique" ON "permissions" USING btree ("slug");--> statement-breakpoint
 CREATE UNIQUE INDEX "role_permissions_unique" ON "role_permissions" USING btree ("roleId","permissionId");--> statement-breakpoint
-CREATE UNIQUE INDEX "roles_slug_unique" ON "roles" USING btree ("slug");--> statement-breakpoint
 CREATE UNIQUE INDEX "software_name_version_unique" ON "software" USING btree ("name","version");--> statement-breakpoint
 CREATE INDEX "software_name_idx" ON "software" USING btree ("name");--> statement-breakpoint
 CREATE UNIQUE INDEX "software_install_asset_unique" ON "software_installations" USING btree ("assetId","softwareId");--> statement-breakpoint
