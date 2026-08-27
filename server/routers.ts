@@ -38,7 +38,7 @@ export const appRouter = router({
     updateAccess: identityAdminProcedure
       .input(z.object({ userId: z.number().int().positive(), role: roleSchema.optional(), status: statusSchema.optional() }).refine(value => value.role || value.status, "At least one access change is required"))
       .mutation(async ({ ctx, input }) => {
-        return changeUserAccess({ actorUserId: ctx.user.id, userId: input.userId, role: input.role, status: input.status });
+        return changeUserAccess({ actorUserId: ctx.user.id, actorRole: ctx.user.role, userId: input.userId, role: input.role, status: input.status });
       }),
   }),
   audit: router({
