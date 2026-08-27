@@ -40,9 +40,13 @@ La validation statique a été exécutée avec `pnpm validate`, qui enchaîne le
 | `GET /` | PASS | Réponse HTTP 200 du serveur applicatif disponible |
 | Routes protégées anonymes | PASS | `/api/monitoring/targets`, `/api/monitoring/targets/1/status`, `/api/alerts`, `/api/incidents` et `/api/incidents/1` répondent tous HTTP 401 |
 | RBAC et sécurité | PASS par tests de contrat | Les tests tRPC/REST et service restent couverts ; aucune désactivation de sécurité |
-| `pnpm validate` | PASS | 16 fichiers de tests, 72 tests passés, TypeScript et build réussis |
+| `pnpm validate` | PASS | 17 fichiers de tests, 75 tests passés, TypeScript et build réussis |
 | Secrets dans Git/logs | PASS avec assainissement local | Audit des fichiers versionnés : aucun motif secret non qualifié ; les jetons Bearer historiques détectés dans les logs locaux ont été remplacés par `REDACTED` |
 | Restart/persistance volume | BLOCKED | Aucun conteneur ni volume PostgreSQL disponible à redémarrer |
+
+## Runbook Fedora Étape 5.1
+
+Le protocole reproductible destiné à l’environnement Fedora Docker est documenté dans `docs/runbook-validation-fedora.md`. Le script optionnel non destructif est `scripts/validate-runtime.sh`. Ces artefacts vérifient les prérequis, mais ne déclarent aucune preuve Fedora avant réception des sorties réelles.
 
 ## Synchronisation Git
 

@@ -79,6 +79,8 @@ IT Infrastructure Manager est un control plane pensé pour une équipe informati
 - [Audit migration PostgreSQL](docs/postgresql-migration-audit.md)
 - [Validation PostgreSQL](docs/validation-postgresql.md)
 - [Validation opérationnelle Étape 5](docs/validation-operationnelle-etape-5.md)
+- [Runbook validation Fedora Étape 5.1](docs/runbook-validation-fedora.md)
+- [Script validation runtime](scripts/validate-runtime.sh)
 - [Sécurité](docs/security.md)
 - [RBAC](docs/rbac.md)
 - [Audit post-Étape 1](docs/audit-post-etape-1.md)

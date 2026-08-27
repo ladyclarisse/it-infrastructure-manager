@@ -137,3 +137,20 @@
 - [x] Étape 5 — créer ou mettre à jour une convention d’environnement local reproductible non secrète et la référencer dans la documentation Docker : `.env.local.example` et `docs/installation.md`.
 - [x] Étape 5 — tester les routes protégées monitoring et incidents, puis relancer un audit de secrets sur le dépôt hors dépendances et artefacts : toutes les routes testées répondent `401`, audit sans finding.
 - [x] Étape 5 — ajouter un test automatisé dédié au modèle `.env.local.example`, aux variables PostgreSQL/Prometheus et au rapport opérationnel : 3 tests passés.
+
+# Prompt joint 10 — à traiter
+
+- [ ] Lire le prompt joint et extraire ses critères d’acceptation.
+- [ ] Auditer le projet et définir les changements techniques requis.
+- [ ] Implémenter les exigences réalisables et ajouter les tests associés.
+- [ ] Mettre à jour la documentation et qualifier les limites runtime.
+- [ ] Valider, versionner et pousser la livraison sur `main`.
+
+# Étape 5.1 — Runbook de validation Fedora
+
+- [x] Auditer le commit `b144a77` et préserver les livrables Étape 5 existants sans réécriture inutile.
+- [x] Vérifier le contrat Compose, les variables `.env.local.example`, les migrations `drizzle-pg/` et les scripts réellement disponibles.
+- [x] Créer `docs/runbook-validation-fedora.md` avec les commandes exactes Docker, PostgreSQL, Prometheus, Node Exporter, Alert, Incident, Audit et persistance.
+- [x] Créer un script de validation runtime sûr, sans secrets affichés, sans suppression de volumes et sans bypass OAuth/RBAC, si pertinent : `scripts/validate-runtime.sh`.
+- [x] Ajouter les tests nécessaires aux nouveaux artefacts et mettre à jour la matrice de validation sans déclarer Fedora PASS : 3 tests du runbook/script passés ; validation globale 75 tests.
+- [ ] Exécuter `pnpm validate`, versionner et pousser la livraison Étape 5.1 sur `main`.
