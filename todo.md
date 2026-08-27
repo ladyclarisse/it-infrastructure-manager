@@ -240,6 +240,6 @@
 # Synchronisation GitHub — modifications UI/UX récentes
 
 - [x] Auditer le statut local, les commits récents et la référence distante `main`.
-- [ ] Versionner les modifications non poussées, si nécessaire, sans écraser l’historique.
-- [ ] Pousser toutes les modifications sur `main` et vérifier le hash distant.
-- [ ] Confirmer le contenu synchronisé et livrer le statut final.
+- [x] Versionner les modifications non poussées, si nécessaire, sans écraser l’historique.
+- [x] Pousser toutes les modifications sur `main` et vérifier le hash distant.
+- [x] Confirmer le contenu synchronisé et livrer le statut final.
