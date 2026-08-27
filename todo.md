@@ -25,3 +25,6 @@
 - [x] Poursuivre l’extraction des services d’authentification, audit et catalogue RBAC hors des routeurs.
 - [x] Ajouter les tests des mutations utilisateurs : changement de rôle, désactivation, réactivation et audit associé.
 - [x] Tester la surface HTTP réelle `/api/trpc` et consigner le résultat : `auth.me` et `/` répondent HTTP 200 en runtime.
+- [x] Réaliser l’audit technique post-Étape 1 complet, sans commencer l’Étape 2 ni modifier l’architecture.
+- [x] Produire une matrice d’état avec preuves concrètes pour frontend, backend, base, Docker, auth, RBAC, audit, migrations, tests, documentation et GitHub.
+- [x] Identifier précisément les fonctionnalités fonctionnelles, seulement implémentées, bloquées, non testées, les problèmes classés par gravité et la recommandation de passage à l’Étape 2.
