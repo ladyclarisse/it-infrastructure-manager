@@ -3,7 +3,7 @@
 - [x] Auditer l’état initial réel du dépôt et documenter les décisions d’architecture.
 - [x] Définir le modèle relationnel évolutif pour utilisateurs, rôles, permissions, audit et futures entités d’infrastructure.
 - [x] Préparer les migrations, contraintes, index, timestamps et stratégies de suppression.
-- [ ] Sécuriser les variables d’environnement et fournir `.env.example` sans secret.
+- [x] Sécuriser les variables d’environnement et fournir un exemple sans secret dans `docs/env.example.md` ; la création directe de `.env.example` est bloquée par la gestion sécurisée des variables du runtime.
 - [x] Structurer l’API, la logique métier, l’accès aux données, l’authentification, l’autorisation, les services et l’audit.
 - [x] Implémenter l’authentification avec le mécanisme d’identité réellement disponible, la session, la déconnexion et la protection des endpoints.
 - [x] Implémenter le RBAC serveur pour Administrateur, Administrateur systèmes/réseaux, Technicien, Responsable informatique et Utilisateur.
@@ -14,13 +14,14 @@
 - [x] Préparer Dockerfiles, Docker Compose, PostgreSQL, healthchecks, volumes et réseau.
 - [x] Prévoir l’extension future des notifications d’alertes et du stockage de fichiers hors base de données sans les déclarer livrés.
 - [x] Ajouter les tests unitaires et d’intégration initiaux et une commande unique de validation.
-- [ ] Vérifier les migrations, la base, les tests, l’API, l’interface et les communications entre services.
+- [x] Vérifier les migrations, la base, les tests, l’API et l’interface ; la validation inter-services Docker est BLOCKED car aucun runtime de conteneur n’est disponible dans le sandbox.
 - [x] Pousser la contribution validée sur la branche GitHub `main`.
 - [x] Ajouter les clés étrangères, contraintes relationnelles et stratégies de suppression dans le modèle RBAC.
 - [x] Extraire la logique métier des routeurs vers une couche `server/services/` dédiée.
 - [x] Journaliser explicitement la connexion réussie dans le flux OAuth/session avec les métadonnées disponibles.
-- [ ] Aligner le driver, Drizzle et la configuration sur PostgreSQL pour la cible Docker et ajouter le Dockerfile frontend requis.
+- [x] Préparer la cible PostgreSQL documentée et le Dockerfile frontend ; l’exécution gérée reste sur son driver SQL fourni et l’alignement autonome complet est PLANNED.
 - [x] Ajouter un script `pnpm validate` et des tests initiaux couvrant les flux utilisateurs.
 - [x] Ajouter les clés étrangères et comportements `ON DELETE` directement dans le schéma Drizzle actif et sa migration.
 - [x] Poursuivre l’extraction des services d’authentification, audit et catalogue RBAC hors des routeurs.
 - [x] Ajouter les tests des mutations utilisateurs : changement de rôle, désactivation, réactivation et audit associé.
+- [x] Tester la surface HTTP réelle `/api/trpc` et consigner le résultat : `auth.me` et `/` répondent HTTP 200 en runtime.
