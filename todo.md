@@ -37,5 +37,5 @@
 - [x] Exécuter la validation finale, créer un commit dédié et pousser la correction sur `main`.
 - [x] Vérifier explicitement la réactivation et documenter l’absence de suppression utilisateur livrée.
 - [x] Créer et pousser le commit dédié Étape 1.1 sur `main` avant de clôturer la validation finale.
-- [ ] Committer et pousser `server/routers.ts` avec le passage explicite de `actorRole`.
-- [ ] Relancer `pnpm validate` sur un arbre Git propre identique à `github/main`.
+- [x] Committer et pousser `server/routers.ts` avec le passage explicite de `actorRole`.
+- [x] Relancer `pnpm validate` sur un arbre Git propre identique à `github/main`.
