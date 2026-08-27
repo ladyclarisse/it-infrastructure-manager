@@ -161,7 +161,7 @@
 - [x] Auditer l’état actuel du dépôt et identifier les corrections minimales.
 - [x] Implémenter les corrections réalisables avec leurs tests associés.
 - [x] Mettre à jour la documentation et qualifier les limites runtime.
-- [ ] Valider, versionner et pousser la livraison sur `main`.
+- [x] Valider, versionner et pousser la livraison sur `main`.
 
 # Étape 5.2 — Qualification runtime Fedora réelle
 
@@ -170,4 +170,4 @@
 - [x] Créer `docs/operations/fedora-runtime-evidence.md` pour encadrer les sorties expurgées à renvoyer.
 - [x] Créer le rapport structuré Étape 5.2 avec domaines PASS/BLOCKED/À MESURER et limitations actuelles.
 - [x] Ajouter les tests strictement nécessaires aux nouveaux artefacts documentaires, sans transformer les tests unitaires en intégration artificielle.
-- [ ] Exécuter `pnpm validate`, versionner et pousser la livraison sur `main` sans déclarer Fedora validé.
+- [x] Exécuter `pnpm validate`, versionner et pousser la livraison sur `main` sans déclarer Fedora validé.
