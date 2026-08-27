@@ -96,7 +96,7 @@
 
 # Nouveau prompt joint — à exécuter
 
-- [ ] Lire le nouveau prompt joint et extraire toutes ses exigences vérifiables.
+- [x] Lire le nouveau prompt joint et extraire toutes ses exigences vérifiables.
 - [ ] Implémenter, tester, documenter et livrer les exigences du nouveau prompt après audit du projet.
 
 # Étape 4.1 — Consolidation PostgreSQL réelle
@@ -108,7 +108,7 @@
 - [x] Aligner Compose, exemples d’environnement, README, installation, déploiement et troubleshooting.
 - [x] Exécuter la stack Docker, les migrations persistantes PostgreSQL, les healthchecks et la preuve Prometheus/Node Exporter si le runtime est disponible : **BLOCKED — runtime conteneur indisponible dans le sandbox**.
 - [ ] Ajouter ou adapter les tests PostgreSQL réels et publier le rapport de validation sans confondre tests mockés et persistance réelle : **BLOCKED — aucune instance PostgreSQL réelle disponible ; invariants statiques TESTED**.
-- [ ] Versionner et pousser la consolidation PostgreSQL sur `main` après validation, en consignant les éventuels blocages exacts.
+- [x] Versionner et pousser la consolidation PostgreSQL sur `main` après validation, en consignant les éventuels blocages exacts : `9015529`.
 - [x] Étape 4.1 — mettre à jour explicitement le guide troubleshooting/PostgreSQL avec les diagnostics `node-postgres`, `drizzle-pg`, limites runtime Docker et erreurs attendues.
 - [x] Étape 4.1 — requalifier les tests PostgreSQL persistants en `BLOCKED` tant qu’aucune instance réelle n’est disponible ; conserver les tests d’invariants en `TESTED`.
-- [ ] Étape 4.1 — créer le commit final de consolidation PostgreSQL, pousser sur `main` et consigner son hash exact dans le rapport de validation.
+- [x] Étape 4.1 — créer le commit final de consolidation PostgreSQL, pousser sur `main` et consigner son hash exact dans le rapport de validation : `9015529`.

@@ -28,6 +28,10 @@ La consolidation applicative vers PostgreSQL est **IMPLEMENTED** et la validatio
 
 Le schéma et l’accès aux données sont dans `drizzle/schema.ts`, `server/db.ts`, `drizzle.config.ts` et `drizzle-pg.config.ts`. La migration complète est `drizzle-pg/0000_perfect_tyrannus.sql`. La cible autonome est alignée dans `docker-compose.yml`. Les guides courants sont `README.md`, `docs/architecture.md`, `docs/data-model.md`, `docs/api-inventory.md`, `docs/rbac.md`, `docs/env.example.md`, `docs/installation.md`, `docs/deployment.md` et `docs/troubleshooting.md`. Le contrôle déterministe est couvert par `server/postgres.migration.test.ts`.
 
+## Synchronisation Git
+
+La consolidation PostgreSQL a été commitée sur `main` avec le hash `9015529` et poussée vers `https://github.com/ladyclarisse/it-infrastructure-manager`. L’arbre de travail était propre après le push. Ce hash identifie la livraison fonctionnelle et documentaire de cette itération.
+
 ## Réserve de compatibilité
 
 Les migrations MySQL historiques restent sous `drizzle/` et ne doivent pas être appliquées sur PostgreSQL. Le runtime géré du sandbox fournit encore une `DATABASE_URL` incompatible ; le garde-fou du helper DB la refuse au lieu d’émettre des requêtes dans le mauvais dialecte. Dans un environnement Fedora disposant réellement de Docker, la preuve à produire est : PostgreSQL healthy, migration depuis zéro, requête persistante, backend healthy, Prometheus healthy, scrape `node-exporter:9100`, cible `UP`, puis chaîne monitoring/alerte/incident.
