@@ -6,7 +6,7 @@
 
 Le projet répond au besoin de disposer d’un control plane professionnel pour les équipes informatiques : identité, droits, traçabilité et inventaire administratif. L’Étape 2 ajoute le registre d’actifs et ses relations sans activer le monitoring, les agents, le SNMP ou la découverte automatique. L’Étape 2.1 complète les CRUD des interfaces, logiciels, installations, localisations, relations et sous-types réseau via le transport tRPC existant.
 
-Le choix actuel est pragmatique : **React 19 + TypeScript + Tailwind CSS 4** pour une console dense et accessible, **Express + tRPC 11** pour des contrats serveur typés, **Drizzle ORM** pour le modèle versionné, et la base SQL gérée par le runtime. Une cible PostgreSQL/Docker est documentée dans `docs/deployment.md` ; elle sera activée avec une migration dédiée lorsque l’exécution sera déplacée vers un environnement Docker maîtrisé.
+Le choix actuel est pragmatique : **React 19 + TypeScript + Tailwind CSS 4** pour une console dense et accessible, **Express + tRPC 11** pour des contrats serveur typés, et **Drizzle ORM + node-postgres (`pg`)** pour un modèle PostgreSQL versionné. La chaîne PostgreSQL dédiée se trouve dans `drizzle-pg/` ; les migrations MySQL historiques sont conservées sous `drizzle/` uniquement pour traçabilité. La validation runtime Docker reste indépendante de la validation statique.
 
 ## État réel de l’Étape 1
 
@@ -33,7 +33,7 @@ Le choix actuel est pragmatique : **React 19 + TypeScript + Tailwind CSS 4** pou
 | Recherche, filtres et pagination | IMPLEMENTED | Recherche SQL et filtres type, statut, environnement et localisation |
 | Monitoring Prometheus/Node Exporter | IMPLEMENTED | Cibles, service Prometheus, API monitoring et métriques réelles sans simulation |
 | Windows Exporter, SNMP, agents, découverte | PLANNED | Aucun exporter secondaire, scan ou agent propriétaire |
-| PostgreSQL/Docker runtime | BLOCKED | Runtime conteneur PostgreSQL non disponible dans l’environnement audité |
+| PostgreSQL/Docker runtime | BLOCKED | Le code et la migration PostgreSQL sont alignés ; le runtime Docker local doit encore être exécuté et prouvé |
 | Validation Étape 2.1 | TESTED | `pnpm validate` : 38 tests, TypeScript et build réussis ; façade REST testée par mapping et enregistrement |
 
 ## État réel de l’Étape 4
@@ -47,8 +47,8 @@ Le choix actuel est pragmatique : **React 19 + TypeScript + Tailwind CSS 4** pou
 | Console Alerts/Incidents | IMPLEMENTED | Listes, filtres, détail, timeline, états vides et erreurs explicites |
 | Alertmanager | DESIGNED / PLANNED | Aucun webhook ou secret externe activé à cette étape |
 | Docker/Prometheus réel | BLOCKED | À exécuter sur un runtime conteneurisé réel |
-| PostgreSQL réel | BLOCKED | Validation externe à réaliser si cette cible devient obligatoire |
-| Validation Étape 4 | TESTED | Tests service, routeur, REST, présentation frontend, TypeScript et build à confirmer par `pnpm validate` |
+| PostgreSQL réel | BLOCKED | Validation réelle de connexion, migration, requête et réponse backend à réaliser dans un environnement Docker disponible |
+| Validation Étape 4 | TESTED | Tests service, routeur, REST, présentation frontend, TypeScript et build réussis via `pnpm validate` |
 
 ## Démarrage
 
@@ -76,6 +76,8 @@ IT Infrastructure Manager est un control plane pensé pour une équipe informati
 - [Guide utilisateur](docs/user-guide.md)
 - [Contrat API](docs/api.md)
 - [Déploiement](docs/deployment.md)
+- [Audit migration PostgreSQL](docs/postgresql-migration-audit.md)
+- [Validation PostgreSQL](docs/validation-postgresql.md)
 - [Sécurité](docs/security.md)
 - [RBAC](docs/rbac.md)
 - [Audit post-Étape 1](docs/audit-post-etape-1.md)

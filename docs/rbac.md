@@ -23,4 +23,4 @@ Les tentatives autorisées ou refusées produisent des événements d’audit `U
 
 ## Limites
 
-La table `permissions` et l’association `role_permissions` sont modélisées et contraintes, mais la décision actuelle s’appuie encore sur une hiérarchie de rôles codée côté service. Une matrice de permissions dynamique est `PLANNED`. Les tests de persistance réelle des changements restent `BLOCKED — PostgreSQL runtime unavailable` dans la cible Docker ; la base active du runtime géré est MySQL via `mysql2`.
+La table `permissions` et l’association `role_permissions` sont modélisées et contraintes, mais la décision actuelle s’appuie encore sur une hiérarchie de rôles codée côté service. Une matrice de permissions dynamique est `PLANNED`. Les tests de persistance réelle des changements restent `BLOCKED — runtime PostgreSQL conteneurisé indisponible` ; le code applicatif utilise désormais Drizzle PostgreSQL via `node-postgres`.

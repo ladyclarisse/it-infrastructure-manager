@@ -2,7 +2,7 @@
 
 ## Principes
 
-Le projet suit une architecture en couches : React présente les cas d’usage ; les procédures tRPC constituent le contrat d’application ; les middlewares portent l’authentification et le RBAC ; `server/db.ts` centralise les requêtes ; `drizzle/schema.ts` versionne le modèle. L’identité n’est pas réimplémentée : le runtime fournit Manus OAuth, un cookie de session signé et `sdk.authenticateRequest`.
+Le projet suit une architecture en couches : React présente les cas d’usage ; les procédures tRPC constituent le contrat d’application ; les middlewares portent l’authentification et le RBAC ; `server/db.ts` centralise les requêtes PostgreSQL via `node-postgres` ; `drizzle/schema.ts` versionne le modèle PostgreSQL et `drizzle-pg/` sa chaîne de migrations. L’identité n’est pas réimplémentée : le runtime fournit Manus OAuth, un cookie de session signé et `sdk.authenticateRequest`.
 
 ## Modèle relationnel
 
@@ -14,7 +14,7 @@ Le projet suit une architecture en couches : React présente les cas d’usage ;
 | `role_permissions` | association rôles/permissions | suppression de l’association |
 | `audit_logs` | traçabilité des actions sensibles | conservation, purge gouvernée ultérieurement |
 
-Les identifiants sont auto-incrémentés, les comptes sont indexés par `email`, `role` et `status`, et les événements par `actorUserId` et `action`. L’Étape 2 ajoute `assets`, `servers`, `workstations`, `network_devices`, `network_interfaces`, `software`, `software_installations`, `locations` et `asset_relationships`, avec index, uniques et clés étrangères documentés dans `docs/data-model.md`. Les métriques, alertes, incidents, tickets, sauvegardes et documents restent `PLANNED`.
+Les identifiants sont auto-incrémentés, les comptes sont indexés par `email`, `role` et `status`, et les événements par `actorUserId` et `action`. L’Étape 2 ajoute `assets`, `servers`, `workstations`, `network_devices`, `network_interfaces`, `software`, `software_installations`, `locations` et `asset_relationships`, avec index, uniques et clés étrangères documentés dans `docs/data-model.md`. Le monitoring réel, les alertes et les incidents sont livrés dans des modules séparés : Prometheus reste le moteur des séries temporelles et l’application conserve les métadonnées, épisodes, incidents et audits. Le ticketing, les sauvegardes et les documents restent `PLANNED`.
 
 ## RBAC
 

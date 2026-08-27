@@ -1,5 +1,16 @@
 # Installation
 
-Le projet géré démarre avec `pnpm install` puis `pnpm dev`. La validation locale s’exécute avec `pnpm check && pnpm test`. L’identité est fournie par Manus OAuth ; l’environnement doit donc exposer les variables listées dans la configuration du projet.
+Pour le développement applicatif sans stack conteneurisée, installer les dépendances avec `pnpm install`, renseigner une `DATABASE_URL` PostgreSQL accessible, puis lancer `pnpm dev`. L’identité est fournie par Manus OAuth ; l’environnement doit exposer les variables listées dans `docs/env.example.md`.
 
-Pour l’environnement Docker, fournir les variables hors Git, lancer `docker compose up --build`, puis vérifier le healthcheck PostgreSQL et la réponse HTTP du backend. Les données PostgreSQL utilisent le volume `postgres_data`.
+Pour l’environnement Docker, fournir les variables hors Git, puis lancer la stack sous un nom explicite afin d’éviter toute collision avec d’autres projets :
+
+```bash
+docker compose -p it-infrastructure-manager up --build -d
+docker compose -p it-infrastructure-manager ps
+```
+
+La base PostgreSQL est le service `postgres`, le backend utilise `postgres:5432`, et les données résident dans le volume `postgres_data`. La chaîne de migrations PostgreSQL est `drizzle-pg/`; les fichiers historiques MySQL sous `drizzle/` sont conservés mais ne doivent pas être appliqués à PostgreSQL.
+
+Après démarrage, vérifier `pg_isready`, le healthcheck backend, la disponibilité de Prometheus, les métriques Node Exporter et les logs backend. Exécuter ensuite `pnpm drizzle-kit migrate`, puis une requête applicative réelle. Les statuts `TESTED` ne peuvent être déclarés qu’après ces preuves ; sinon consigner `BLOCKED — <raison exacte>`.
+
+La validation statique du dépôt s’exécute avec `pnpm check && pnpm test && pnpm build`, ou avec `pnpm validate`.

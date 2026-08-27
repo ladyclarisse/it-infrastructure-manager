@@ -19,4 +19,4 @@ Les clés étrangères empêchent les références orphelines. `assetTag` et le 
 
 La migration `drizzle/0003_dizzy_lily_hollister.sql` crée les tables et contraintes sans supprimer de données existantes. Les suppressions sont explicites : sous-types et interfaces suivent l’asset en `CASCADE`, l’utilisateur principal d’un poste devient `NULL`, une destination de relation est protégée en `RESTRICT`, et les interfaces liées à une relation deviennent `NULL`.
 
-La base active du runtime reste pilotée par Drizzle/MySQL. La variante PostgreSQL et son DDL Docker sont une cible documentée, mais ne doivent pas être annoncés comme validés tant que le runtime conteneur n’est pas disponible.
+La base applicative est désormais décrite par Drizzle PostgreSQL et accédée via `node-postgres`. Le schéma conserve les noms métier et les relations existantes ; les migrations PostgreSQL sont sous `drizzle-pg/`. La connexion, l’application de la migration et les requêtes persistantes restent à valider dans un runtime PostgreSQL conteneurisé disponible.

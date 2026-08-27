@@ -2,7 +2,7 @@
 
 ## Conclusion
 
-**ÉTAPE 4 VALIDÉE AVEC RÉSERVES.** La couche applicative Alert Rules → Alerts → Incidents est implémentée, authentifiée, contrôlée par RBAC, auditée et couverte par des tests backend, API et de présentation frontend. La chaîne inter-services Docker/Prometheus et la persistance PostgreSQL sur un runtime externe restent à confirmer dans un environnement disposant des services réels.
+**ÉTAPE 4 VALIDÉE AVEC RÉSERVES.** La couche applicative Alert Rules → Alerts → Incidents est implémentée, authentifiée, contrôlée par RBAC, auditée et couverte par des tests backend, API et de présentation frontend. La chaîne inter-services Docker/Prometheus et la persistance PostgreSQL sur un runtime externe restent à confirmer dans un environnement disposant des services réels ; le code et les artefacts de migration sont désormais alignés sur PostgreSQL.
 
 ## Architecture
 
@@ -55,7 +55,7 @@ La configuration Docker/Compose de l’Étape 3 reste la référence pour Promet
 
 ## PostgreSQL
 
-Le runtime géré courant utilise le dialecte MySQL/TiDB de la base du projet ; la migration générée et appliquée dans cet environnement crée les quatre tables et leurs FK/index. Une validation PostgreSQL réelle est **BLOCKED** tant qu’une instance PostgreSQL dédiée n’est pas disponible. Le schéma reste portable conceptuellement, mais la compatibilité PostgreSQL doit être vérifiée séparément avant un changement de dialecte.
+Le code applicatif utilise désormais le dialecte PostgreSQL avec `node-postgres`, et la migration complète est générée dans `drizzle-pg/`. Les migrations MySQL historiques sont conservées sous `drizzle/` pour traçabilité et ne sont pas réutilisées. La connexion réelle, l’application de la migration et les requêtes persistantes PostgreSQL restent **BLOCKED** tant qu’une instance PostgreSQL dédiée n’est pas disponible.
 
 ## Sécurité
 
