@@ -140,10 +140,10 @@
 
 # Prompt joint 10 — à traiter
 
-- [ ] Lire le prompt joint et extraire ses critères d’acceptation.
-- [ ] Auditer le projet et définir les changements techniques requis.
-- [ ] Implémenter les exigences réalisables et ajouter les tests associés.
-- [ ] Mettre à jour la documentation et qualifier les limites runtime.
+- [x] Lire le prompt joint et extraire ses critères d’acceptation.
+- [x] Auditer le projet et définir les changements techniques requis.
+- [x] Implémenter les exigences réalisables et ajouter les tests associés.
+- [x] Mettre à jour la documentation et qualifier les limites runtime.
 - [x] Valider, versionner et pousser la livraison sur `main` : validation statique PASS, runtime Fedora à mesurer, commit `b925b72` poussé.
 
 # Étape 5.1 — Runbook de validation Fedora
