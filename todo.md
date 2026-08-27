@@ -181,3 +181,11 @@
 - [x] Exécuter `pnpm validate` et qualifier séparément le build Docker Fedora réellement observé.
 - [x] Documenter les sorties Fedora fournies, sans déclarer PostgreSQL/Prometheus/Alert/Incident validés par simple démarrage Docker.
 - [x] Créer le commit dédié et pousser la correction sur `main` via le mécanisme de versionnement du projet.
+
+# Étape 5.3.1 — Requalification du stage backend runtime
+
+- [x] Enregistrer l’échec Fedora fourni sur le stage backend runtime sans le reclasser artificiellement en PASS.
+- [x] Vérifier chaque instruction `pnpm install` des stages backend build/runtime et frontend build avec le chemin exact du patch.
+- [x] Renforcer le test afin de contrôler chaque installation concernée, pas seulement la première occurrence.
+- [x] Mettre à jour le rapport Étape 5.3 pour distinguer l’état du dépôt courant de la preuve Fedora échouée/stale éventuelle.
+- [x] Exécuter `pnpm validate` et créer un checkpoint dédié ; laisser le build Fedora réel en FAIL tant qu’un nouveau résultat post-correctif n’est pas fourni.

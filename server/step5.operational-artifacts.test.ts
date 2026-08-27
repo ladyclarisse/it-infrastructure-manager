@@ -12,6 +12,7 @@ const validation53 = read("../docs/validation-operationnelle-etape-5-3.md");
 const backendDockerfile = read("../docker/backend.Dockerfile");
 const frontendDockerfile = read("../docker/frontend.Dockerfile");
 const dockerignore = read("../.dockerignore");
+const wouterPatch = read("../patches/wouter@3.7.1.patch");
 
 describe("Étape 5 operational artifacts", () => {
   it("documents a non-secret local environment routed through Docker service names", () => {
@@ -39,12 +40,21 @@ describe("Étape 5 operational artifacts", () => {
     expect(validation).not.toContain("Prometheus target = UP");
   });
 
-  it("keeps the pnpm patch available before every Docker install", () => {
-    for (const dockerfile of [backendDockerfile, frontendDockerfile]) {
-      const patchCopy = dockerfile.indexOf("COPY patches ./patches");
-      const install = dockerfile.indexOf("RUN pnpm install");
-      expect(patchCopy).toBeGreaterThanOrEqual(0);
-      expect(patchCopy).toBeLessThan(install);
+  it("keeps the exact pnpm patch available before every Docker install", () => {
+    for (const [name, dockerfile] of [
+      ["backend", backendDockerfile],
+      ["frontend", frontendDockerfile],
+    ] as const) {
+      const installLines = dockerfile
+        .split("\n")
+        .map((line, index) => ({ line, index }))
+        .filter(({ line }) => line.includes("RUN pnpm install"));
+      expect(installLines.length, `${name} install count`).toBeGreaterThan(0);
+      for (const { index } of installLines) {
+        const precedingLines = dockerfile.split("\n").slice(0, index).join("\n");
+        expect(precedingLines).toContain("COPY patches ./patches");
+        expect(wouterPatch.length).toBeGreaterThan(0);
+      }
     }
     expect(backendDockerfile).toContain("RUN pnpm install --prod --frozen-lockfile");
     expect(dockerignore).not.toMatch(/^patches(\/|$)/m);
@@ -60,7 +70,8 @@ describe("Étape 5 operational artifacts", () => {
     expect(validation52).toContain("| Target UP | BLOCKED |");
     expect(validation52).not.toContain("| Target UP | PASS |");
     expect(validation53).toContain("ENOENT: no such file or directory");
-    expect(validation53).toContain("| Docker build Fedora après correctif | À MESURER |");
+    expect(validation53).toContain("| Docker build Fedora après correctif | FAIL |");
+    expect(validation53).toContain("| Docker Compose healthchecks | À MESURER |");
     expect(validation53).toContain("| PostgreSQL réel et migrations | BLOCKED |");
     expect(validation53).not.toContain("| Prometheus / Node Exporter / target UP | PASS |");
   });
