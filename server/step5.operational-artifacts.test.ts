@@ -8,6 +8,10 @@ const compose = read("../docker-compose.yml");
 const validation = read("../docs/validation-operationnelle-etape-5.md");
 const evidence = read("../docs/operations/fedora-runtime-evidence.md");
 const validation52 = read("../docs/validation-operationnelle-etape-5-2.md");
+const validation53 = read("../docs/validation-operationnelle-etape-5-3.md");
+const backendDockerfile = read("../docker/backend.Dockerfile");
+const frontendDockerfile = read("../docker/frontend.Dockerfile");
+const dockerignore = read("../.dockerignore");
 
 describe("Étape 5 operational artifacts", () => {
   it("documents a non-secret local environment routed through Docker service names", () => {
@@ -35,6 +39,18 @@ describe("Étape 5 operational artifacts", () => {
     expect(validation).not.toContain("Prometheus target = UP");
   });
 
+  it("keeps the pnpm patch available before every Docker install", () => {
+    for (const dockerfile of [backendDockerfile, frontendDockerfile]) {
+      const patchCopy = dockerfile.indexOf("COPY patches ./patches");
+      const install = dockerfile.indexOf("RUN pnpm install");
+      expect(patchCopy).toBeGreaterThanOrEqual(0);
+      expect(patchCopy).toBeLessThan(install);
+    }
+    expect(backendDockerfile).toContain("RUN pnpm install --prod --frozen-lockfile");
+    expect(dockerignore).not.toMatch(/^patches(\/|$)/m);
+    expect(dockerignore).toContain("node_modules");
+  });
+
   it("publishes the Fedora evidence protocol without requesting secrets", () => {
     expect(evidence).toContain("docker compose -p it-infrastructure-manager up -d --build");
     expect(evidence).toContain("up{job=\"node-exporter\"}");
@@ -43,5 +59,9 @@ describe("Étape 5 operational artifacts", () => {
     expect(validation52).toContain("BLOCKED — exécution Fedora réelle requise");
     expect(validation52).toContain("| Target UP | BLOCKED |");
     expect(validation52).not.toContain("| Target UP | PASS |");
+    expect(validation53).toContain("ENOENT: no such file or directory");
+    expect(validation53).toContain("| Docker build Fedora après correctif | À MESURER |");
+    expect(validation53).toContain("| PostgreSQL réel et migrations | BLOCKED |");
+    expect(validation53).not.toContain("| Prometheus / Node Exporter / target UP | PASS |");
   });
 });

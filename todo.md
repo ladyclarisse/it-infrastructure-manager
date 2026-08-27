@@ -171,3 +171,13 @@
 - [x] Créer le rapport structuré Étape 5.2 avec domaines PASS/BLOCKED/À MESURER et limitations actuelles.
 - [x] Ajouter les tests strictement nécessaires aux nouveaux artefacts documentaires, sans transformer les tests unitaires en intégration artificielle.
 - [x] Exécuter `pnpm validate`, versionner et pousser la livraison sur `main` sans déclarer Fedora validé.
+
+# Étape 5.3 — Correction du build Docker pnpm patch
+
+- [x] Auditer et documenter la cause exacte de l’ENOENT du patch pnpm dans les deux Dockerfiles.
+- [x] Corriger les Dockerfiles pour copier `patches/` avant chaque `pnpm install` sans supprimer le patch ni désactiver `frozen-lockfile`.
+- [x] Ajouter ou vérifier un `.dockerignore` qui conserve `patches/` dans le contexte Docker.
+- [x] Ajouter les tests nécessaires pour verrouiller l’ordre des COPY et la présence du patch.
+- [x] Exécuter `pnpm validate` et qualifier séparément le build Docker Fedora réellement observé.
+- [x] Documenter les sorties Fedora fournies, sans déclarer PostgreSQL/Prometheus/Alert/Incident validés par simple démarrage Docker.
+- [x] Créer le commit dédié et pousser la correction sur `main` via le mécanisme de versionnement du projet.
