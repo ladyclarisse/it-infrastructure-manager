@@ -44,7 +44,7 @@ services:
       dockerfile: docker/frontend.Dockerfile
       args:
         VITE_APP_ID: ${VITE_APP_ID:-}
-        VITE_OAUTH_PORTAL_URL: ${VITE_OAUTH_PORTAL_URL:-https://oauth.manus.im}
+        VITE_OAUTH_PORTAL_URL: ${VITE_OAUTH_PORTAL_URL:-https://manus.im}
     depends_on:
       backend:
         condition: service_healthy

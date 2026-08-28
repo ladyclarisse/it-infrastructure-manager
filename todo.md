@@ -377,8 +377,8 @@
 
 # Mode local Fedora — interface sans OAuth configuré
 
-- [ ] Permettre à Compose de construire et démarrer l’interface locale sans exiger `VITE_APP_ID`, tout en conservant un comportement explicite lorsque OAuth n’est pas configuré.
-- [ ] Ajouter une régression et documenter que l’accès local à l’interface ne constitue pas une validation de l’authentification OAuth.
+- [x] Permettre à Compose de construire et démarrer l’interface locale sans exiger `VITE_APP_ID`, tout en conservant un comportement explicite lorsque OAuth n’est pas configuré.
+- [x] Ajouter une régression et documenter que l’accès local à l’interface ne constitue pas une validation de l’authentification OAuth.
 - [ ] Pousser le correctif, reconstruire la stack Fedora et vérifier l’ouverture sur `http://localhost:8080`. 
 
 # OAuth Fedora — réactivation demandée
@@ -390,3 +390,8 @@
 
 - [x] Transmettre `VITE_APP_ID` au conteneur backend en plus du build frontend, car l’échange de code et la signature de session l’utilisent au runtime.
 - [x] Tester et pousser cette correction avant la nouvelle reconstruction Fedora : `pnpm validate` PASS, 21 fichiers et 89 tests.
+
+# OAuth Fedora — endpoint portail invalide
+
+- [x] Identifier l’URL officielle réellement utilisée par `VITE_OAUTH_PORTAL_URL` ; `https://oauth.manus.im` est invalidée par `DNS_PROBE_FINISHED_NXDOMAIN`.
+- [x] Corriger le fallback et la documentation sans inventer de domaine : endpoint officiel confirmé `https://manus.im`; validation locale PASS.

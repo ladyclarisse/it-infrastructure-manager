@@ -22,7 +22,7 @@ export function getOAuthStateCookieConfig(isSecureOrigin: boolean) {
 // with "invalid oauth state". It returns false when local OAuth configuration is
 // absent, otherwise it navigates immediately and returns true.
 export const startLogin = (): boolean => {
-  const oauthPortalUrl = (import.meta.env.VITE_OAUTH_PORTAL_URL || "https://oauth.manus.im").trim();
+  const oauthPortalUrl = (import.meta.env.VITE_OAUTH_PORTAL_URL || "https://manus.im").trim();
   const appId = (import.meta.env.VITE_APP_ID || "").trim();
   if (!appId) {
     console.warn("[OAuth] Login unavailable: VITE_APP_ID is not configured for this local build");
