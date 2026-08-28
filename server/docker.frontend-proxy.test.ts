@@ -18,6 +18,7 @@ describe("production frontend proxy", () => {
   it("allows the local interface to build without silently attempting an invalid OAuth URL", () => {
     const compose = read("../docker-compose.yml");
     expect(compose).toContain("VITE_APP_ID: ${VITE_APP_ID:-}");
+    expect(compose.match(/VITE_APP_ID: \$\{VITE_APP_ID:-\}/g)).toHaveLength(2);
     expect(compose).toContain("VITE_OAUTH_PORTAL_URL: ${VITE_OAUTH_PORTAL_URL:-https://oauth.manus.im}");
     expect(oauthClient).toContain("const oauthPortalUrl = (import.meta.env.VITE_OAUTH_PORTAL_URL || \"https://oauth.manus.im\").trim();");
     expect(oauthClient).toContain("console.warn(\"[OAuth] Login unavailable: VITE_APP_ID is not configured for this local build\")");

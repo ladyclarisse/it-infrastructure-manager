@@ -372,11 +372,21 @@
 
 # OAuth Fedora — identifiant public indisponible
 
-- [ ] Déterminer une source fiable de `VITE_APP_ID` ou un mécanisme de configuration OAuth local qui ne requiert pas de valeur cachée dans l’interface Manus.
-- [ ] Éviter de rendre le build Fedora silencieusement inutilisable lorsque l’environnement Manus injecte automatiquement l’identifiant OAuth.
+- [x] Déterminer une source fiable de `VITE_APP_ID` : identifiant injecté par l’environnement Manus et confirmé comme valeur publique du projet, sans l’exposer dans les fichiers versionnés.
+- [x] Éviter de rendre le build Fedora silencieusement inutilisable lorsque l’environnement Manus injecte automatiquement l’identifiant OAuth : fallback local et message UI explicite ajoutés.
 
 # Mode local Fedora — interface sans OAuth configuré
 
 - [ ] Permettre à Compose de construire et démarrer l’interface locale sans exiger `VITE_APP_ID`, tout en conservant un comportement explicite lorsque OAuth n’est pas configuré.
 - [ ] Ajouter une régression et documenter que l’accès local à l’interface ne constitue pas une validation de l’authentification OAuth.
 - [ ] Pousser le correctif, reconstruire la stack Fedora et vérifier l’ouverture sur `http://localhost:8080`. 
+
+# OAuth Fedora — réactivation demandée
+
+- [ ] Remplacer le mode local sans OAuth par une configuration réellement exploitable dans les conteneurs Fedora, uniquement avec une source officielle de l’identifiant d’application.
+- [ ] Revalider le clic de connexion, le callback, `auth.me` et la route Utilisateurs après configuration OAuth réelle.
+
+# OAuth Fedora — transmission backend
+
+- [x] Transmettre `VITE_APP_ID` au conteneur backend en plus du build frontend, car l’échange de code et la signature de session l’utilisent au runtime.
+- [x] Tester et pousser cette correction avant la nouvelle reconstruction Fedora : `pnpm validate` PASS, 21 fichiers et 89 tests.
