@@ -8,7 +8,7 @@ function isIpAddress(host: string) {
   return host.includes(":");
 }
 
-function isSecureRequest(req: Request) {
+export function isSecureRequest(req: Request) {
   if (req.protocol === "https") return true;
 
   const forwardedProto = req.headers["x-forwarded-proto"];
@@ -39,10 +39,15 @@ export function getSessionCookieOptions(
   //       ? hostname
   //       : undefined;
 
+  const secure = isSecureRequest(req);
+
   return {
     httpOnly: true,
     path: "/",
-    sameSite: "none",
-    secure: isSecureRequest(req),
+    // Browsers reject `SameSite=None` without `Secure`. Lax keeps a local
+    // top-level OAuth callback working over HTTP while HTTPS keeps cross-site
+    // session behavior and the `Secure` transport guarantee.
+    sameSite: secure ? "none" : "lax",
+    secure,
   };
 }

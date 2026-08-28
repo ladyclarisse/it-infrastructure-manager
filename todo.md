@@ -310,8 +310,21 @@
 
 # Docker production — proxy frontend vers backend
 
-- [ ] Corriger le serveur Nginx du frontend afin de relayer `/api/` vers le service backend Compose, sans exposer directement de secret ni modifier les routes applicatives.
-- [ ] Ajouter une régression statique du proxy et valider le routage réel frontend `/api/trpc` vers backend sur Fedora.
+- [x] Corriger le serveur Nginx du frontend afin de relayer `/api/` vers le service backend Compose, sans exposer directement de secret ni modifier les routes applicatives.
+- [x] Ajouter une régression statique du proxy et valider le routage réel frontend `/api/trpc` vers backend sur Fedora.
+
+# Fedora runtime — preuves applicatives réelles
+
+- [x] Démarrer les cinq services Compose avec healthchecks réussis, puis vérifier les racines backend/frontend et le refus anonyme JSON d’une route protégée à travers le proxy.
+- [x] Vérifier Node Exporter, la cible Prometheus `up` et la requête PromQL `up{job="node-exporter"} = 1` dans le réseau Compose.
+- [ ] Valider le parcours OAuth réel via le frontend Fedora, puis constater une session `auth.me` authentifiée et une route protégée.
+- [ ] Vérifier la chaîne applicative Alert → Incident avec une session autorisée, sans inventer d’alerte ni d’incident.
+- [ ] Vérifier la persistance du schéma PostgreSQL et des données de validation après recréation contrôlée des conteneurs, sans supprimer les volumes.
+
+# OAuth Fedora — état CSRF via proxy
+
+- [ ] Diagnostiquer la divergence entre le cookie d’état OAuth émis et le callback relaié par Nginx, sans inspecter la valeur du cookie ou du code OAuth.
+- [ ] Corriger le périmètre de cookie ou d’origine démontré, ajouter la régression ciblée et revalider la connexion réelle sur Fedora.
 
 # PostgreSQL sandbox — validation réelle de test
 
