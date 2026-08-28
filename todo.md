@@ -284,11 +284,34 @@
 
 # PostgreSQL local — environnement Fedora utilisateur
 
-- [ ] Confirmer le chemin d’accès à la machine Fedora et au dépôt avant de toucher à PostgreSQL.
-- [ ] Vérifier que PostgreSQL local écoute sur l’interface attendue et que la base cible est dédiée au projet.
-- [ ] Configurer localement `DATABASE_URL` sans exposer son secret dans Git ou dans le chat.
-- [ ] Exécuter les migrations PostgreSQL depuis le checkout Fedora avec les commandes prévues par le projet.
+- [x] Confirmer le chemin d’accès à la machine Fedora et au dépôt avant de toucher à PostgreSQL.
+- [x] Vérifier que PostgreSQL Compose répond avec le rôle attendu et que la base cible est vide avant migrations.
+- [x] Configurer la configuration PostgreSQL locale via `.env` protégé, sans exposer de secret dans Git ou dans le chat.
+- [x] Exécuter deux passages de migrations PostgreSQL depuis le checkout Fedora et confirmer leur idempotence.
 - [ ] Vérifier la connexion applicative et relancer le diagnostic OAuth après migrations.
+
+# Fedora Docker — blocage réseau npm
+
+- [x] Vérifier le manifeste versionné : le bind mount Prometheus porte bien le suffixe `:ro,Z` sous SELinux Enforcing.
+- [x] Lancer le build applicatif Fedora et isoler l’échec `ETIMEDOUT` de téléchargement npm, sans modification fonctionnelle du projet.
+- [x] Reprendre le build backend/frontend avec réseau de build temporaire, puis confirmer la construction réussie des deux images.
+
+# Fedora Docker — accès au socket utilisateur
+
+- [x] Vérifier et rétablir, sans élévation persistante de privilèges, l’accès de l’utilisateur Fedora au socket Docker avant les contrôles PostgreSQL applicatifs.
+
+# Fedora PostgreSQL — réalignement d’initialisation
+
+- [x] Identifier l’échec d’authentification `28P01` lors de la migration comme un décalage entre le volume PostgreSQL existant et le mot de passe du `.env` local.
+- [x] Inventorier sans écriture les bases présentes dans le volume PostgreSQL avant toute opération de réalignement.
+- [x] Obtenir l’accord explicite avant toute suppression du seul volume PostgreSQL Compose devenu incompatible avec la configuration locale.
+- [x] Réinitialiser uniquement ce volume après accord explicite ; PostgreSQL Compose est recréé, sain et authentifié avec le `.env` local.
+- [x] Appliquer les migrations sur la base Fedora réinitialisée puis vérifier 19 tables, les contraintes, cinq rôles et deux entrées du journal Drizzle.
+
+# Docker production — proxy frontend vers backend
+
+- [ ] Corriger le serveur Nginx du frontend afin de relayer `/api/` vers le service backend Compose, sans exposer directement de secret ni modifier les routes applicatives.
+- [ ] Ajouter une régression statique du proxy et valider le routage réel frontend `/api/trpc` vers backend sur Fedora.
 
 # PostgreSQL sandbox — validation réelle de test
 
