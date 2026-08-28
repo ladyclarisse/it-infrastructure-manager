@@ -365,7 +365,7 @@
 
 # OAuth Fedora — configuration publique frontend
 
-- [ ] Confirmer que les variables publiques `VITE_OAUTH_PORTAL_URL` et `VITE_APP_ID` sont absentes de la build Docker Fedora sans afficher leurs valeurs.
-- [ ] Corriger l’injection de ces variables au build frontend via des arguments Docker/Compose ou une configuration documentée, sans secret dans Git.
-- [ ] Ajouter une régression statique et exécuter `pnpm validate`.
+- [x] Confirmer que les variables publiques `VITE_OAUTH_PORTAL_URL` et `VITE_APP_ID` étaient absentes de la build Docker Fedora sans afficher leurs valeurs.
+- [x] Corriger l’injection de ces variables au build frontend via des arguments Docker/Compose ou une configuration documentée, sans secret dans Git.
+- [x] Ajouter une régression statique et exécuter `pnpm validate` : 21 fichiers, 89 tests, TypeScript/build PASS.
 - [ ] Rebuilder Fedora, vérifier que le bouton de connexion démarre OAuth, puis revalider la session et la route Utilisateurs.
