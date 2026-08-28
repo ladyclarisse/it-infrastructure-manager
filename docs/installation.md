@@ -2,7 +2,7 @@
 
 Pour le développement applicatif sans stack conteneurisée, installer les dépendances avec `pnpm install`, renseigner une `DATABASE_URL` PostgreSQL accessible, puis lancer `pnpm dev`. L’identité est fournie par Manus OAuth ; l’environnement doit exposer les variables listées dans `docs/env.example.md`.
 
-Pour l’environnement Docker, partir du modèle non secret `.env.local.example`, le copier localement vers `.env.local`, remplacer les placeholders uniquement sur la machine de développement et ne jamais committer `.env.local`. La variable `DATABASE_URL` doit cibler `postgres:5432` depuis le backend. Lancer ensuite la stack sous un nom explicite afin d’éviter toute collision avec d’autres projets :
+Pour l’environnement Docker, partir du modèle non secret `.env.local.example`, le copier localement vers `.env.local`, remplacer les placeholders uniquement sur la machine de développement et ne jamais committer `.env.local`. La variable `DATABASE_URL` doit cibler `postgres:5432` depuis le backend. Les variables publiques `VITE_APP_ID` et `VITE_OAUTH_PORTAL_URL` sont facultatives pour ouvrir l’interface locale ; si `VITE_APP_ID` est vide, le bouton de connexion affiche une limitation explicite et aucune tentative OAuth invalide n’est lancée. Elles doivent être renseignées avec la configuration de l’application Manus si l’authentification locale est nécessaire. Lancer ensuite la stack sous un nom explicite afin d’éviter toute collision avec d’autres projets :
 
 ```bash
 docker compose -p it-infrastructure-manager up --build -d

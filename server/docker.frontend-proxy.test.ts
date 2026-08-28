@@ -4,6 +4,7 @@ import fs from "node:fs";
 const read = (path: string) => fs.readFileSync(new URL(path, import.meta.url), "utf8");
 const frontendDockerfile = read("../docker/frontend.Dockerfile");
 const nginxConfig = read("../docker/nginx.conf");
+const oauthClient = read("../client/src/const.ts");
 
 describe("production frontend proxy", () => {
   it("installs the project Nginx configuration and receives public OAuth build args", () => {
@@ -14,10 +15,12 @@ describe("production frontend proxy", () => {
     expect(frontendDockerfile).toContain("COPY docker/nginx.conf /etc/nginx/conf.d/default.conf");
   });
 
-  it("requires public OAuth values in Compose instead of silently building a dead login button", () => {
+  it("allows the local interface to build without silently attempting an invalid OAuth URL", () => {
     const compose = read("../docker-compose.yml");
-    expect(compose).toContain("VITE_APP_ID must be provided for frontend build");
-    expect(compose).toContain("VITE_OAUTH_PORTAL_URL must be provided for frontend build");
+    expect(compose).toContain("VITE_APP_ID: ${VITE_APP_ID:-}");
+    expect(compose).toContain("VITE_OAUTH_PORTAL_URL: ${VITE_OAUTH_PORTAL_URL:-https://oauth.manus.im}");
+    expect(oauthClient).toContain("const oauthPortalUrl = (import.meta.env.VITE_OAUTH_PORTAL_URL || \"https://oauth.manus.im\").trim();");
+    expect(oauthClient).toContain("console.warn(\"[OAuth] Login unavailable: VITE_APP_ID is not configured for this local build\")");
   });
 
   it("relays API and OAuth routes to the internal backend while retaining SPA fallback", () => {

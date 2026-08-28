@@ -1,6 +1,6 @@
 # Exemple d’environnement
 
-Les variables suivantes sont nécessaires à une installation autonome. Les valeurs ci-dessous sont des placeholders et ne doivent jamais être réutilisées en production.
+Les variables suivantes sont nécessaires au backend et à PostgreSQL. Les variables publiques Vite OAuth sont nécessaires uniquement pour activer la connexion OAuth locale ; l’interface peut démarrer sans elles. Les valeurs ci-dessous sont des placeholders et ne doivent jamais être réutilisées en production.
 
 ```dotenv
 NODE_ENV=development
