@@ -362,3 +362,10 @@
 - [x] Réinitialiser uniquement la base sandbox de test et réappliquer toutes les migrations.
 - [x] Ajouter un test de régression sur l’invariant PostgreSQL puis exécuter `pnpm validate`.
 - [x] Initialiser le catalogue de rôles de référence sur une base fraîche avant le premier upsert OAuth.
+
+# OAuth Fedora — configuration publique frontend
+
+- [ ] Confirmer que les variables publiques `VITE_OAUTH_PORTAL_URL` et `VITE_APP_ID` sont absentes de la build Docker Fedora sans afficher leurs valeurs.
+- [ ] Corriger l’injection de ces variables au build frontend via des arguments Docker/Compose ou une configuration documentée, sans secret dans Git.
+- [ ] Ajouter une régression statique et exécuter `pnpm validate`.
+- [ ] Rebuilder Fedora, vérifier que le bouton de connexion démarre OAuth, puis revalider la session et la route Utilisateurs.
